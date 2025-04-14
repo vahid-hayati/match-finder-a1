@@ -1,0 +1,15 @@
+<section>
+    <div>
+        <form>
+            <label>Email</label>
+            <input type="email" [formControl]="EmailCtrl">
+
+            <label>Password</label>
+            <input type="password" [formControl]="PasswordCtrl">
+
+            <button (click)="login()" mat-stroked-button color="accent">Login</button>
+        </form>
+    </div>
+</section>
+
+<!-- <p>login works!</p> -->

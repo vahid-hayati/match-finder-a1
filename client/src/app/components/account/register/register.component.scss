@@ -1,0 +1,30 @@
+section {
+    background: powderblue;
+    display: flex;
+    justify-content: center;
+
+    .item-1 {
+        // background: yellow;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // border: 4px solid black;
+        // border-radius: 12px;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        // margin: 0.5rem;
+
+        form {
+            background: yellowgreen;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 4px solid black;
+            border-radius: 12px;
+
+            button {
+                margin: 8px;
+            }
+        }
+    }
+}

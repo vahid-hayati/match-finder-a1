@@ -1,0 +1,36 @@
+<section>
+    <div class="item-1">
+        <form>
+            <label>Email</label>
+            <input type="email" [formControl]="EmailCtrl">
+
+            <label>Name</label>
+            <input type="text" [formControl]="NameCtrl">
+
+            <label>Password</label>
+            <input type="password" [formControl]="PasswordCtrl">
+
+            <label>Confirm Password</label>
+            <input type="password" [formControl]="ConfirmPasswordCtrl">
+
+            <label>Age</label>
+            <input type="number" [formControl]="AgeCtrl">
+
+            <label>Gender</label>
+            <input type="text" [formControl]="GenderCtrl">
+
+            <label>City</label>
+            <input type="text" [formControl]="CityCtrl">
+
+            <label>Country</label>
+            <input type="text" [formControl]="CountryCtrl">
+
+            <button routerLink="/member" (click)="register()" mat-flat-button color="parimary">Register</button>
+        </form>
+    </div>
+</section>
+
+<!-- <button (click)="login()" mat-stroked-button color="parimary">Login</button> -->
+
+<!-- <p>register works!</p>
+<button routerLink="/account/login">login</button> -->
