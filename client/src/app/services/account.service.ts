@@ -11,16 +11,17 @@ import { Member } from '../models/member.model';
 })
 export class AccountService {
   http = inject(HttpClient);
+  private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
 
   register(user: AppUser): Observable<LoggedIn> {
-    return this.http.post<LoggedIn>('http://localhost:5000/api/account/register', user);
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', user);
   }
 
   login(userInput: Login): Observable<LoggedIn> {
-    return this.http.post<LoggedIn>('http://localhost:5000/api/account/login', userInput);
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
   }
 
   getAllMember(): Observable<Member[]> {
-    return this.http.get<Member[]>('http://localhost:5000/api/account');
+    return this.http.get<Member[]>(this._baseApiUrl + 'account');
   }
 }

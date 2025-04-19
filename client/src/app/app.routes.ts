@@ -13,6 +13,6 @@ export const routes: Routes = [
     { path: 'account/login', component: LoginComponent },
     { path: 'footer', component: FooterComponent },
     { path: 'navbar', component: NavbarComponent },
-    { path: 'member', component: MemberComponent },
+    { path: 'members', component: MemberComponent },
     { path: '**', component: NotFoundComponent }
 ];

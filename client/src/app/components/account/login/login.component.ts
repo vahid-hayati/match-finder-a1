@@ -36,8 +36,8 @@ export class LoginComponent {
 
   login(): void {
     let userInput: Login = {
-      email: 'a1@a.com',
-      password: '12345678'
+      email: this.EmailCtrl.value,
+      password: this.PasswordCtrl.value
     }
 
     this.accountService.login(userInput).subscribe();
