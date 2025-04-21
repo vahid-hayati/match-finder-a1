@@ -4,7 +4,9 @@ import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators 
 import { Login } from '../../../models/login.model';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     RouterLink,
     FormsModule, ReactiveFormsModule,
-    MatButtonModule
+    MatCardModule,
+    MatButtonModule, MatFormFieldModule, MatInputModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

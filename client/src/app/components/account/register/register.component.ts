@@ -4,7 +4,8 @@ import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppUser } from '../../../models/app-user.model';
 import { MatButtonModule } from '@angular/material/button';
-import { MemberComponent } from '../../member/member.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,7 @@ import { MemberComponent } from '../../member/member.component';
   imports: [
     RouterLink,
     FormsModule, ReactiveFormsModule,
-    MatButtonModule,
-    MemberComponent
+    MatButtonModule, MatFormFieldModule, MatInputModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -29,10 +29,10 @@ export class RegisterComponent {
     passwordCtrl: '',
     confirmPasswordCtrl: '',
     ageCtrl: 0,
-    genderCtrl: '', 
+    genderCtrl: '',
     cityCtrl: '',
     countryCtrl: ''
-  })
+  });
 
   get EmailCtrl(): FormControl {
     return this.registerFg.get('emailCtrl') as FormControl;

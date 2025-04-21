@@ -1,22 +1,67 @@
-div {
+$card_size: 9rem;
+
+.container {
     background-color: gray;
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 
-    mat-card {
-        display: flex;
-        gap: 1rem;
-        background-color: aquamarine;
-        
-        mat-card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+    .card {
+        background-color: aqua;
+        max-width: $card_size;
 
+        img {
+            width: $card_size;
+            height: $card_size;
+            // transform: scale(1.0, 1.0);
+            transition-duration: 500ms;
+            transition-timing-function: ease-out;
+        }
+
+        &:hover {
             img {
-                border-radius: 50%;
+                transform: scale(1.2, 1.2);
+                transition-duration: 500ms;
+                transition-timing-function: ease-out;
+                opacity: 0.7;
+            }
+
+            .card-img-wrapper .user-icons {
+                bottom: 0.5rem;
+            }
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+
+            .user-icons {
+                // background-color: red;
+                position: absolute;
+                bottom: -30%;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                min-width: $card_size;
+                justify-content: space-evenly;
+                gap: 2px;
+                list-style-type: none;
+
+                transition: all 0.3s ease-in-out;
+
+                li {
+                    transition-duration: 200ms;
+                    transition-timing-function: ease-out;
+
+                    &:hover {
+                        transform: scale(1.3, 1.3);
+                        transition-duration: 200ms;
+                        transition-timing-function: ease-out;
+                    }
+                }
             }
         }
     }

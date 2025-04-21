@@ -1,27 +1,19 @@
-<section>
-  <div>
+<div class="page">
+  <section class="container">
     <header>
       <nav>
         <app-navbar />
-      </nav>
+      </nav>  
     </header>
 
     <main>
-      <router-outlet />
+      <div class="wrapper">
+        <router-outlet />
+      </div>
     </main>
-
+    
     <footer>
       <app-footer />
     </footer>
-  </div>
-</section>
-
-
-
-
-
-
-<!--
-    <button (click)="register()" mat-flat-button color="primary">Register</button>
-    <button (click)="login()" mat-stroked-button color="primary">Login</button>
--->
+  </section>
+</div>

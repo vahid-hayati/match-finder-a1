@@ -1,15 +1,20 @@
 <section>
-    <div>
+    <div class="item-1">
         <form>
-            <label>Email</label>
-            <input type="email" [formControl]="EmailCtrl">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" [formControl]="EmailCtrl" matInput>
+            </mat-form-field>
 
-            <label>Password</label>
-            <input type="password" [formControl]="PasswordCtrl">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" [formControl]="PasswordCtrl" matInput>
+            </mat-form-field>
 
-            <button routerLink="/members" (click)="login()" mat-stroked-button color="accent">Login</button>
+            <button routerLink="/members" (click)="login()" mat-stroked-button color="accent"
+                [disabled]="loginFg.invalid">
+                Login
+            </button>
         </form>
     </div>
 </section>
-
-<!-- <p>login works!</p> -->
