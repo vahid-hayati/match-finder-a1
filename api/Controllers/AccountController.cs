@@ -1,8 +1,6 @@
 namespace api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AccountController(IAccountRepository accountRepository) : ControllerBase
+public class AccountController(IAccountRepository accountRepository) : BaseApiController
 {
     // CRUD => Create, Read, Update, Delete
 
