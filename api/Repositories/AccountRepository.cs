@@ -47,37 +47,6 @@ public class AccountRepository : IAccountRepository
         return loggedInDto;
     }
 
-    public async Task<List<AppUser>?> GetAllAsync(CancellationToken cancellationToken)
-    {
-        List<AppUser> appUsers = await _collection.Find(new BsonDocument()).ToListAsync(cancellationToken);
-
-        if (appUsers.Count == 0)
-            return null;
-
-        return appUsers;
-    }
-
-    public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
-    {
-        UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
-            .Set(user => user.Email, userInput.Email.Trim().ToLower());
-
-        await _collection.UpdateOneAsync(user
-            => user.Id == userId, updateDef, null, cancellationToken);
-
-        AppUser appUser = await _collection.Find(user => user.Id == userId).FirstOrDefaultAsync(cancellationToken);
-
-        if (appUser is null)
-            return null;
-
-        LoggedInDto loggedInDto = new(
-            Email: appUser.Email,
-            Name: appUser.Name
-        );
-
-        return loggedInDto;
-    }
-
     public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(doc => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);
