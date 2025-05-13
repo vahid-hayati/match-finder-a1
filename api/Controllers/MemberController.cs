@@ -2,7 +2,7 @@ namespace api.Controllers;
 
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<ActionResult<List<MemberDto>>> GetAll(CancellationToken cancellationToken)
     {
         List<AppUser>? appUsers = await memberRepository.GetAllAsync(cancellationToken);

@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { Observable } from 'rxjs';
+import { LoggedIn } from '../../../models/logged-in.model';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 export class LoginComponent {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
-
+  
+  //#region formGroup
   loginFg = this.fB.group({
     emailCtrl: ['', [Validators.required, Validators.email]],
     passwordCtrl: ['']
@@ -36,6 +39,7 @@ export class LoginComponent {
   get PasswordCtrl(): FormControl {
     return this.loginFg.get('passwordCtrl') as FormControl;
   }
+  //#endregion
 
   login(): void {
     let userInput: Login = {
@@ -43,6 +47,12 @@ export class LoginComponent {
       password: this.PasswordCtrl.value
     }
 
-    this.accountService.login(userInput).subscribe();
+    let loginResponse$: Observable<LoggedIn> = this.accountService.login(userInput);
+
+    loginResponse$.subscribe({
+      next: (res => {
+        console.log(res);
+      })
+    });
   }
 }

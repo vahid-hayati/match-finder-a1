@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     RouterLink,
     FormsModule, ReactiveFormsModule,
     MatButtonModule, MatFormFieldModule, MatInputModule
-    ],
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -79,7 +79,9 @@ export class RegisterComponent {
       country: this.CountryCtrl.value
     }
 
-    this.accountService.register(user).subscribe({
+    let registerResponse$ = this.accountService.register(user);
+
+    registerResponse$.subscribe({
       next: (res) => console.log(res),
       error: (err) => console.log(err.error)
     });
