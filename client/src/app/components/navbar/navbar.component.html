@@ -4,6 +4,7 @@
             <mat-icon>eco</mat-icon>
             Match Finder
         </a>
+        <h3>value of ageSig: {{exampleService.ageSig()}}</h3>
     </section>
     <section class="right">
         <button routerLink="/account/register" mat-raised-button>Register</button>
@@ -13,7 +14,7 @@
 </mat-toolbar>
 
 <!-- signal
-    @if (accountService.loggedInUserSig()) {
+    @if (accountService.responseSignal()) {
     <button (click)="logout()" mat-raised-button color="warn">Logout</button>
     }
     @else {
