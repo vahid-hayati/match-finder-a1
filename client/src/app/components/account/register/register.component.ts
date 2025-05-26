@@ -6,6 +6,7 @@ import { AppUser } from '../../../models/app-user.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ExampleService } from '../../../services/example.service';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class RegisterComponent {
   accountService = inject(AccountService);
+  exampleService = inject(ExampleService);
   fB = inject(FormBuilder);
 
   //#region registerFg 

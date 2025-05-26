@@ -15,44 +15,76 @@ export class AccountService {
   private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
   platformId = inject(PLATFORM_ID);
   router = inject(Router);
+  loggedInUserSig = signal<LoggedIn | null>(null);
 
-  register(user: AppUser): Observable<LoggedIn> {
-    let userResponse$: Observable<LoggedIn> =
-      this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', user);
+  // responseSignal = signal<LoggedIn | null>(null);
 
-    userResponse$.pipe(
+  register(userInput: AppUser): Observable<LoggedIn | null> {
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', userInput).pipe(
       map(res => {
-        this.setCurrentUser(res);
+        if (res) {
+          this.setCurrentUser(res);
 
-        return res;
+          return res;
+        }
+
+        return null;
       })
     );
 
-    return userResponse$;
+    // let userResponse$: Observable<LoggedIn> =
+    //   this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', user);
+
+    // userResponse$.pipe(
+    //   map(res => {
+    //     this.setCurrentUser(res);
+
+    //     return res;
+    //   })
+    // );
+
+    // return userResponse$;
   }
 
-  login(userInput: Login): Observable<LoggedIn> {
-    let userResponse$: Observable<LoggedIn> =
-      this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
-
-    userResponse$.pipe(
+  login(userInput: Login): Observable<LoggedIn | null> {
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput).pipe(
       map(res => {
-        this.setCurrentUser(res);
+        if (res) {
+            this.setCurrentUser(res);
+      
+          return res;
+        }
 
-        return res;
+        return null;
       })
     );
 
-    return userResponse$;
+    // let userResponse$: Observable<LoggedIn> =
+    //   this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
+
+    // userResponse$.pipe(
+    //   map(res => {
+    //     this.setCurrentUser(res);
+
+    //     return res;
+    //   })
+    // );
+
+    // return userResponse$;
   }
 
   setCurrentUser(loggedIn: LoggedIn): void {
+    this.loggedInUserSig.set(loggedIn);
+    console.log(this.loggedInUserSig);
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
     }
   }
 
   logout(): void {
+    this.loggedInUserSig.set(null);
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
@@ -62,7 +94,15 @@ export class AccountService {
 }
 
 
-/* signal
+/* Signal basic
+  responseUser: number = 0;
+
+  increasment(): void {
+    this.responseUser = this.responseUser + 1;
+  }
+*/
+
+/* Signal
   loggedInUserSig = signal<LoggedIn | null>(null);
   
   login(userInput: Login): Observable<LoggedIn | null> {

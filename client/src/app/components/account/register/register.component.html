@@ -1,5 +1,10 @@
 <section>
+    <!-- Signal basic 
+        <p>Value: {{accountService.responseUser}}</p> 
+    -->
+
     <div class="item-1">
+        <!-- <h1>{{exampleService.number}}</h1> -->
         <form>
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
@@ -41,14 +46,9 @@
                 <input type="text" [formControl]="CountryCtrl" matInput>
             </mat-form-field>
 
-            <button
-             routerLink="/members" 
-             (click)="register()" 
-             mat-flat-button 
-             color="parimary"
-             [disabled]="registerFg.invalid"
-             >
-             Register
+            <button routerLink="/members" (click)="register()" mat-flat-button color="parimary"
+                [disabled]="registerFg.invalid">
+                Register
             </button>
         </form>
     </div>

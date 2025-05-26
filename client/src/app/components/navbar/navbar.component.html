@@ -7,9 +7,15 @@
         <h3>value of ageSig: {{exampleService.ageSig()}}</h3>
     </section>
     <section class="right">
+        @if (accountService.loggedInUserSig()) {
+        <button (click)="logout()" mat-raised-button color="warn">Logout</button>
+        <h3>Login shod</h3>
+        }
+        @else {
+        <h3>Login nist</h3>
         <button routerLink="/account/register" mat-raised-button>Register</button>
         <button routerLink="/account/login" mat-raised-button>Login</button>
-        <button (click)="logout()" mat-raised-button color="warn">Logout</button>
+        }
     </section>
 </mat-toolbar>
 

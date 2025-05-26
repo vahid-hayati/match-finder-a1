@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { Student } from '../../models/student.model';
 import { AccountService } from '../../services/account.service';
 import { ExampleService } from '../../services/example.service';
+import { Login } from '../../models/login.model';
+import { LoggedIn } from '../../models/logged-in.model';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +18,7 @@ import { ExampleService } from '../../services/example.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  accountService = inject(AccountService);  
-  exampleService = inject(ExampleService); 
-  // counterSig = signal<number>(0);
+  exampleService = inject(ExampleService);
 }
 
 /* Set local Storege basic
