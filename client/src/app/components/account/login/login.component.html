@@ -11,10 +11,14 @@
                 <input type="password" [formControl]="PasswordCtrl" matInput>
             </mat-form-field>
 
-            <button routerLink="/members/member-list" (click)="login()" mat-stroked-button color="accent"
-                [disabled]="loginFg.invalid">
+            <button routerLink="/members/member-list" (click)="login()" mat-stroked-button color="accent" [disabled]="loginFg.invalid">
                 Login
             </button>
         </form>
+        <!-- <p>
+            {{loggedInRes?.email}}
+            {{loggedInRes?.name}}
+        </p> -->
+
     </div>
 </section>

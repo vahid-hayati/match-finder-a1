@@ -26,6 +26,8 @@ import { ExampleService } from '../../../services/example.service';
 export class LoginComponent {
   accountService = inject(AccountService);
   fB = inject(FormBuilder);
+  loggedInRes: LoggedIn | undefined | null;
+
 
   //#region formGroup
   loginFg = this.fB.group({
@@ -53,6 +55,7 @@ export class LoginComponent {
     loginResponse$.subscribe({
       next: (res => {
         console.log(res);
+        this.loggedInRes = res;
       })
     });
   }

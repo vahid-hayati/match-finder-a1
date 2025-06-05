@@ -24,7 +24,7 @@ export class AccountService {
       map(res => {
         if (res) {
           this.setCurrentUser(res);
-
+          
           return res;
         }
 
@@ -47,11 +47,13 @@ export class AccountService {
   }
 
   login(userInput: Login): Observable<LoggedIn | null> {
-    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput).pipe(
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput)
+    .pipe(
       map(res => {
         if (res) {
-            this.setCurrentUser(res);
-      
+          this.setCurrentUser(res);
+         
+
           return res;
         }
 
@@ -74,11 +76,10 @@ export class AccountService {
   }
 
   setCurrentUser(loggedIn: LoggedIn): void {
-    this.loggedInUserSig.set(loggedIn);
-    console.log(this.loggedInUserSig);
+    this.loggedInUserSig.set(loggedIn); // set logged in user instead of null
 
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
+      localStorage.setItem('loggedInUser', JSON.stringify(loggedIn)); // set logged in user on localstorage
     }
   }
 
@@ -88,36 +89,7 @@ export class AccountService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
-
+    
     this.router.navigateByUrl('account/login');
   }
 }
-
-
-/* Signal basic
-  responseUser: number = 0;
-
-  increasment(): void {
-    this.responseUser = this.responseUser + 1;
-  }
-*/
-
-/* Signal
-  loggedInUserSig = signal<LoggedIn | null>(null);
-  
-  login(userInput: Login): Observable<LoggedIn | null> {
-    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput).pipe(
-        map(userResponse => {
-          localStorage.setItem('res', JSON.stringify(userResponse));
-
-          return userResponse;
-        })
-      );  
-  }
-    setCurrentUser(loggedInUser: LoggedIn): void {
-    if (isPlatformBrowser(this.platformId)) {
-    console.log(this.platformId);
-    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
-    }
-  }
-*/
