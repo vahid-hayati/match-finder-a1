@@ -2,6 +2,8 @@ namespace api.Repositories;
 
 public class AccountRepository : IAccountRepository
 {
+
+    #region Mongodb
     private readonly IMongoCollection<AppUser> _collection;
 
     // Dependency Injection
@@ -10,6 +12,7 @@ public class AccountRepository : IAccountRepository
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
     }
+    #endregion
 
     public async Task<LoggedInDto?> RegisterAsync(AppUser userInput, CancellationToken cancellationToken)
     {
@@ -21,13 +24,13 @@ public class AccountRepository : IAccountRepository
 
         await _collection.InsertOneAsync(userInput, null, cancellationToken);
 
-        // DTO => Data/ Transfer/ Object
-        LoggedInDto loggedInDto = new(
-            Email: userInput.Email,
-            Name: userInput.Name
-        );
+        return Mappers.ConvertAppUserToLoggedInDto(userInput);
 
-        return loggedInDto;
+        // return loggedInDto;
+
+
+        // DTO => Data / Transfer / Object
+        // return Mappers.ConvertAppUserToLoggedInDto(userInput);
     }
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
@@ -36,15 +39,15 @@ public class AccountRepository : IAccountRepository
          await _collection.Find(doc => doc.Email == userInput.Email && doc.Password == userInput.Password)
          .FirstOrDefaultAsync(cancellationToken);
 
-         if (user is null)
+        if (user is null)
             return null;
 
-        LoggedInDto loggedInDto = new (
-            Email: user.Email,
-            Name: user.Name
-        );
+        return Mappers.ConvertAppUserToLoggedInDto(user);
 
-        return loggedInDto;
+        // LoggedInDto loggedInDto =
+        //     Mappers.ConvertAppUserToLoggedInDto(user);
+
+        // return loggedInDto;
     }
 
     public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)

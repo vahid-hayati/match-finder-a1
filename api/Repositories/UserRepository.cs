@@ -11,7 +11,7 @@ public class UserRepository : IUserRepository
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
     }
-    
+
     public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
@@ -25,11 +25,13 @@ public class UserRepository : IUserRepository
         if (appUser is null)
             return null;
 
-        LoggedInDto loggedInDto = new(
-            Email: appUser.Email,
-            Name: appUser.Name
-        );
+        // LoggedInDto loggedInDto = new(
+        //                Email: appUser.Email,
+        //                UserName: appUser.UserName
+        //            );
 
-        return loggedInDto;
+        // return loggedInDto;
+
+        return Mappers.ConvertAppUserToLoggedInDto(appUser);
     }
 }

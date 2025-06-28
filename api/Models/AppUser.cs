@@ -4,7 +4,7 @@ public record AppUser(
     [property: BsonId, BsonRepresentation(BsonType.ObjectId)]
     string? Id,
     [EmailAddress] string Email,
-    string Name,
+    string UserName,
     string Password,
     string ConfirmPassword,
     int Age,
