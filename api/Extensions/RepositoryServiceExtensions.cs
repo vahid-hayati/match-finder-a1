@@ -1,3 +1,5 @@
+using api.Services;
+
 namespace api.Extensions;
 
 public static class RepositoryServiceExtensions
@@ -7,6 +9,7 @@ public static class RepositoryServiceExtensions
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IMemberRepository, MemberRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }

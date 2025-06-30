@@ -4,12 +4,15 @@ namespace api.Repositories;
 public class UserRepository : IUserRepository
 {
     private readonly IMongoCollection<AppUser> _collection;
+    private readonly ITokenService _tokenService;
 
     // Dependency Injection
-    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings)
+    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
+
+        _tokenService = tokenService;
     }
 
     public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
@@ -32,6 +35,8 @@ public class UserRepository : IUserRepository
 
         // return loggedInDto;
 
-        return Mappers.ConvertAppUserToLoggedInDto(appUser);
+        string? token = _tokenService.CreateToken(appUser);
+
+        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
 }

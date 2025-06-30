@@ -1,3 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 namespace api.Extensions;
 
 public static class ApplicationServiceExtensions
@@ -30,7 +34,26 @@ public static class ApplicationServiceExtensions
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
             });
         #endregion Cors
+        
+        #region Authentication & Authorization
+        string tokenValue = configuration["TokenKey"]!;
+
+        if (!string.IsNullOrEmpty(tokenValue))
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenValue)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+        }
+        #endregion Authentication & Authorization
 
         return services;
-    } 
+    }
 }
