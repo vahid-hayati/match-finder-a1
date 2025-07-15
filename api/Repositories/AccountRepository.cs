@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Repositories;
 
+[AllowAnonymous]
 public class AccountRepository : IAccountRepository
 {
 
@@ -27,7 +30,7 @@ public class AccountRepository : IAccountRepository
 
         await _collection.InsertOneAsync(userInput, null, cancellationToken);
 
-        string? token =  _tokenService.CreateToken(userInput);
+        string? token = _tokenService.CreateToken(userInput);
 
         return Mappers.ConvertAppUserToLoggedInDto(userInput, token);
 
@@ -46,7 +49,7 @@ public class AccountRepository : IAccountRepository
         if (user is null)
             return null;
 
-        string? token =  _tokenService.CreateToken(user);
+        string? token = _tokenService.CreateToken(user);
 
         return Mappers.ConvertAppUserToLoggedInDto(user, token);
 
@@ -56,6 +59,7 @@ public class AccountRepository : IAccountRepository
         // return loggedInDto;
     }
 
+    [Authorize]
     public async Task<DeleteResult?> DeleteByIdAsync(string userId, CancellationToken cancellationToken)
     {
         AppUser appUser = await _collection.Find<AppUser>(doc => doc.Id == userId).FirstOrDefaultAsync(cancellationToken);

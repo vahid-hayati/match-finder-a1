@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
+[Authorize]
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
     [HttpGet("get-all")]
@@ -22,7 +25,7 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
             //     City: user.City,
             //     Country: user.Country
             // );
-            
+
             MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(user);
 
             memberDtos.Add(memberDto);
@@ -40,5 +43,4 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
 
         return memberDto;
     }
-
 }
