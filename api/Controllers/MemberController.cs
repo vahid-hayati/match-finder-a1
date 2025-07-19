@@ -34,6 +34,7 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
         return memberDtos;
     }
 
+    [HttpGet("get-by-username/{userName}")]
     public async Task<ActionResult<MemberDto?>> GetByUserName(string userName, CancellationToken cancellationToken)
     {
         MemberDto? memberDto = await memberRepository.GetByUserNameAsync(userName, cancellationToken);

@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace api.Controllers;
 
-                            //PrimaryConstructor
+//PrimaryConstructor
+[Authorize]
 public class UserController(IUserRepository userRepository) : BaseApiController
 {
     [HttpPut("update/{userId}")]
@@ -12,5 +15,5 @@ public class UserController(IUserRepository userRepository) : BaseApiController
             return BadRequest("Operation failed.");
 
         return loggedInDto;
-    }   
+    }
 }
