@@ -53,7 +53,6 @@ export class AccountService {
         if (res) {
           this.setCurrentUser(res);
          
-
           return res;
         }
 

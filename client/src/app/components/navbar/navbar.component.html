@@ -9,7 +9,7 @@
     <section class="right">
         @if (accountService.loggedInUserSig(); as user) {
         <button [mat-menu-trigger-for]="appMenu" class="menu-button" mat-mini-fab>
-            <span>{{user.name[0] | titlecase}}</span>
+            <span>{{user.userName[0] | titlecase}}</span>
         </button>
         }
         @else {
@@ -23,7 +23,7 @@
         @if (accountService.loggedInUserSig(); as user) {
         <div class="user-info">
             <div class="profile-info">
-                <img src="images/nature.jpg" alt="{{user.name[0] | titlecase}}">
+                <img src="images/nature.jpg" alt="{{user.userName[0] | titlecase}}">
                 <!-- <p>{{ user.name[0] | titlecase }}</p> -->
             </div>
             <div>
@@ -116,7 +116,7 @@
         <button routerLink="/account/login" mat-raised-button>Login</button>
         <button routerLink="/account/register" mat-raised-button>Register</button> -->
 
-        <!-- @if (aS.loggedInUserSig()) {
+<!-- @if (aS.loggedInUserSig()) {
             <button (click)="logout()" mat-raised-button color="warn">Logout</button>
         }
         @else {
