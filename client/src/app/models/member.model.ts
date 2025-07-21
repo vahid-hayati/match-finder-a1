@@ -1,6 +1,6 @@
 export interface Member {
     email: string,
-    name: string,
+    userName: string,
     age: number,
     gender: string,
     city: string,

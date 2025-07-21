@@ -13,7 +13,7 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input type="text" [formControl]="NameCtrl" matInput>
+                <input type="text" [formControl]="UserNameCtrl" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -46,8 +46,7 @@
                 <input type="text" [formControl]="CountryCtrl" matInput>
             </mat-form-field>
 
-            <button routerLink="/members" (click)="register()" mat-flat-button color="parimary"
-                [disabled]="registerFg.invalid">
+            <button (click)="register()" mat-flat-button color="parimary" [disabled]="registerFg.invalid">
                 Register
             </button>
         </form>

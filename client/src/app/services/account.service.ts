@@ -24,7 +24,9 @@ export class AccountService {
       map(res => {
         if (res) {
           this.setCurrentUser(res);
-          
+
+          this.router.navigateByUrl('/members/member-list');
+
           return res;
         }
 
@@ -48,17 +50,19 @@ export class AccountService {
 
   login(userInput: Login): Observable<LoggedIn | null> {
     return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput)
-    .pipe(
-      map(res => {
-        if (res) {
-          this.setCurrentUser(res);
-         
-          return res;
-        }
+      .pipe(
+        map(res => {
+          if (res) {
+            this.setCurrentUser(res);
 
-        return null;
-      })
-    );
+            this.router.navigateByUrl('/members/member-list');
+
+            return res;
+          }
+
+          return null;
+        })
+      );
 
     // let userResponse$: Observable<LoggedIn> =
     //   this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
@@ -88,7 +92,7 @@ export class AccountService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
-    
+
     this.router.navigateByUrl('account/login');
   }
 }
