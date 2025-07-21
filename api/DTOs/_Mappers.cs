@@ -1,3 +1,5 @@
+using api.Extensions;
+
 namespace api.DTOs;
 
 public static class Mappers
@@ -15,7 +17,7 @@ public static class Mappers
         return new(
             Email: appUser.Email,
             UserName: appUser.UserName,
-            Age: appUser.Age,
+            Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             Token: tokenValue
         );
     }
@@ -36,7 +38,7 @@ public static class Mappers
         return new(
             Email: appUser.Email,
             UserName: appUser.UserName,
-            Age: appUser.Age,
+            Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             Gender: appUser.Gender,
             City: appUser.City,
             Country: appUser.Country
