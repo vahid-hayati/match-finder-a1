@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import {  inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Member } from '../models/member.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,12 @@ import { Observable } from 'rxjs';
 export class MemberService {
   http = inject(HttpClient);
 
+  private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
+
   getAllMembers(): Observable<Member[]> {
     let members$: Observable<Member[]>
-      = this.http.get<Member[]>('http://localhost:5000/api/member/get-all');
-  
-      return members$;
-    }
+      = this.http.get<Member[]>(this._baseApiUrl + 'member/get-all');
+
+    return members$;
+  }
 }

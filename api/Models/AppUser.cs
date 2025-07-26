@@ -8,7 +8,8 @@ public record AppUser(
     string UserName,
     string Password,
     string ConfirmPassword,
-    DateOnly DateOfBirth, 
+    [Range(typeof(DateOnly), "1900-01-01", "2050-01-01", ErrorMessage = "Date of birth must be between 1900 and 2050.")]
+    DateOnly DateOfBirth,
     string Gender,
     string City,
     string Country

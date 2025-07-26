@@ -6,13 +6,14 @@ import { map, Observable } from 'rxjs';
 import { Login } from '../models/login.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   http = inject(HttpClient);
-  private readonly _baseApiUrl: string = 'http://localhost:5000/api/';
+  private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
   platformId = inject(PLATFORM_ID);
   router = inject(Router);
   loggedInUserSig = signal<LoggedIn | null>(null);
@@ -25,7 +26,7 @@ export class AccountService {
         if (res) {
           this.setCurrentUser(res);
 
-          this.router.navigateByUrl('/members/member-list');
+          this.router.navigateByUrl('members/member-list');
 
           return res;
         }
@@ -49,20 +50,19 @@ export class AccountService {
   }
 
   login(userInput: Login): Observable<LoggedIn | null> {
-    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput)
-      .pipe(
-        map(res => {
-          if (res) {
-            this.setCurrentUser(res);
+    return this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput).pipe(
+      map(res => {
+        if (res) {
+          this.setCurrentUser(res);
 
-            this.router.navigateByUrl('/members/member-list');
+          this.router.navigateByUrl('members/member-list');
 
-            return res;
-          }
+          return res;
+        }
+        return null;
+      })
+    );
 
-          return null;
-        })
-      );
 
     // let userResponse$: Observable<LoggedIn> =
     //   this.http.post<LoggedIn>(this._baseApiUrl + 'account/login', userInput);
@@ -79,10 +79,9 @@ export class AccountService {
   }
 
   setCurrentUser(loggedIn: LoggedIn): void {
-    this.loggedInUserSig.set(loggedIn); // set logged in user instead of null
-
+    this.loggedInUserSig.set(loggedIn);
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('loggedInUser', JSON.stringify(loggedIn)); // set logged in user on localstorage
+      localStorage.setItem('loggedInUser', JSON.stringify(loggedIn));
     }
   }
 
