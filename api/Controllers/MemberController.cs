@@ -1,3 +1,4 @@
+using api.Extensions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers;
@@ -8,6 +9,13 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
     [HttpGet("get-all")]
     public async Task<ActionResult<List<MemberDto>>> GetAll(CancellationToken cancellationToken)
     {
+        var userId = User.GetUserId();
+
+        if (userId is null)
+            return Unauthorized("You are not login. Please login again");
+
+        Console.WriteLine(userId);
+
         List<AppUser>? appUsers = await memberRepository.GetAllAsync(cancellationToken);
 
         if (appUsers is null)
