@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
         _tokenService = tokenService;
     }
 
-    public async Task<LoggedInDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
+    public async Task<MemberDto?> UpdateByIdAsync(string userId, AppUser userInput, CancellationToken cancellationToken)
     {
         UpdateDefinition<AppUser> updateDef = Builders<AppUser>.Update
             .Set(user => user.Email, userInput.Email.Trim().ToLower());
@@ -28,15 +28,6 @@ public class UserRepository : IUserRepository
         if (appUser is null)
             return null;
 
-        // LoggedInDto loggedInDto = new(
-        //                Email: appUser.Email,
-        //                UserName: appUser.UserName
-        //            );
-
-        // return loggedInDto;
-
-        string? token = _tokenService.CreateToken(appUser);
-
-        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+        return Mappers.ConvertAppUserToMemberDto(appUser);
     }
 }

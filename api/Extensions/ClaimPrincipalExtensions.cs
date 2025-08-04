@@ -9,3 +9,12 @@ public static class ClaimPrincipalExtensions
         return user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
 }
+
+// Type: Email
+// Value: null
+
+// Type: Name
+// Value: Parsa
+
+// Type: NameIdentirfier
+// Value: UserId
