@@ -22,4 +22,9 @@ public class UserController(IUserRepository userRepository) : BaseApiController
 
         return loggedInDto;
     }
+
+    public void GetClaims()
+    {
+        string? userId = User.GetUserId();
+    }
 }
