@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): void { // initialize user on page refresh
     let loggedInUser: string | null  = localStorage.getItem('loggedInUser');
-    console.log(loggedInUser);
+      console.log(loggedInUser);
     
     if (loggedInUser != null)
       this.accountService.setCurrentUser(JSON.parse(loggedInUser))

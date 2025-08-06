@@ -19,11 +19,11 @@ export const authLoggedInGuard: CanActivateFn = (route, state) => {
         duration: 7000
       });
 
-      router.navigateByUrl('account/login')
+      router.navigateByUrl('members/member-list')
 
-      return false; // block the component
+      return false; // Block the component
     }
   }
 
-  return false; // open the component
+  return true; // Open the component
 };
