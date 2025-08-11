@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, RouterModule, RouterLink,
+    RouterOutlet, RouterModule, 
     FormsModule, ReactiveFormsModule,
     MatButtonModule,
     NavbarComponent,
@@ -24,11 +24,14 @@ export class AppComponent implements OnInit {
   accountService = inject(AccountService);
   
   ngOnInit(): void { // initialize user on page refresh
-    let loggedInUser: string | null  = localStorage.getItem('loggedInUser');
-      console.log(loggedInUser);
+    let loggedInUserStr: string | null  = localStorage.getItem('loggedInUser');
+      console.log(loggedInUserStr);
     
-    if (loggedInUser != null)
-      this.accountService.setCurrentUser(JSON.parse(loggedInUser))
+    if (loggedInUserStr != null) {
+      this.accountService.authorizeLoggedInUser();
+
+      this.accountService.setCurrentUser(JSON.parse(loggedInUserStr))
+    }
   }
 }
   // accountService = inject(AccountService);

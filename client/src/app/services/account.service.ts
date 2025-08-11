@@ -78,6 +78,21 @@ export class AccountService {
     // return userResponse$;
   }
 
+  authorizeLoggedInUser(): void {
+    console.log('ok');
+    
+    this.http.get(this._baseApiUrl + 'account').subscribe({
+      next: (res) => {
+        if (res) 
+          console.log(res);
+      },
+      error: (err) => {
+        console.log(err.error);
+        this.logout();
+      }
+    });
+  }
+
   setCurrentUser(loggedIn: LoggedIn): void {
     this.loggedInUserSig.set(loggedIn);
     if (isPlatformBrowser(this.platformId)) {
