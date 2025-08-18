@@ -13,6 +13,7 @@ public record AppUser(
     string Gender,
     string City,
     string Country
+    // List<Photo> Photos 
 );
 
 // DTO => Data/Transfer/Object
