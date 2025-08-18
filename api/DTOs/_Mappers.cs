@@ -4,6 +4,21 @@ namespace api.DTOs;
 
 public static class Mappers
 {
+    public static AppUser ConvertRegisterDtoToAppUser(RegisterDto registerDto)
+    {
+        return new AppUser(
+            Email: registerDto.Email,
+            UserName: registerDto.UserName,
+            Password: registerDto.Password,
+            ConfirmPassword: registerDto.ConfirmPassword,
+            DateOfBirth: registerDto.DateOfBirth,
+            Gender: "",
+            City: "",
+            Country: "",
+            Photos: new List<Photo>()
+        );
+    }
+
     public static LoggedInDto ConvertAppUserToLoggedInDto(AppUser appUser, string tokenValue)
     {
         // LoggedInDto loggedInDto = new(
@@ -42,6 +57,16 @@ public static class Mappers
             Gender: appUser.Gender,
             City: appUser.City,
             Country: appUser.Country
+        );
+    }
+
+    public static Photo ConvertPhotoUrlsToPhoto(string[] photoUrls, bool isMain)
+    {
+        return new Photo(
+            Url_165: photoUrls[0],
+            Url_256: photoUrls[1],
+            Url_enlarged: photoUrls[2],
+            IsMain: isMain
         );
     }
 }
