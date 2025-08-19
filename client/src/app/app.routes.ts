@@ -11,15 +11,23 @@ import { authLoggedInGuard } from './guards/auth-logged-in.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-    // {
-    //     path: '',
-    //     runGuardsAndResolvers: 'always',
-    //     canActivate: [authGuard],
-    //     children: [
-    //         { path: 'members/member-list', component: MemberListComponent },
-    //     ]
-    // },
-    { path: 'members/member-list', component: MemberListComponent, canActivate: [authGuard] },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [authGuard],
+        children: [
+            { path: 'members/member-list', component: MemberListComponent },
+        ]
+    },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [authLoggedInGuard],
+        children: [
+            { path: 'account/login', component: LoginComponent },
+            { path: 'account/register', component: RegisterComponent },
+        ]
+    },
     { path: 'navbar', component: NavbarComponent },
     { path: 'account/login', component: LoginComponent, canActivate: [authLoggedInGuard] },
     { path: 'account/register', component: RegisterComponent, canActivate: [authLoggedInGuard] },
