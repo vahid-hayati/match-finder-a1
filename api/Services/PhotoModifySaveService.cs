@@ -351,7 +351,7 @@ public class PhotoModifySaveService(IWebHostEnvironment _webHostEnvironment) : P
     /// <param name="height"></param>
     /// <returns>string: saved path on the disk</returns>
     private async Task<string> SaveImage(SKData sKData, ObjectId userId, string fileName, int operation, int width, int height)
-    { 
+    {
         string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, storageAddress, userId.ToString(), operations[operation],
                             Convert.ToString(width) + "x" + Convert.ToString(height));
 

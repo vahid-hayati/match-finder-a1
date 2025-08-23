@@ -24,7 +24,6 @@ public class AllowedFileExtensionsAttribute : ValidationAttribute
         return ValidationResult.Success;
     }
 
-
     public static bool IsFileValid(IFormFile file)
     {
         using var reader = new BinaryReader(file.OpenReadStream());

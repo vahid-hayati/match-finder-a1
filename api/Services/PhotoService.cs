@@ -44,7 +44,6 @@ public class PhotoService(
             string filePath_enlarged = await _photoModifyService.ResizeImageByScale(formFile, userId, (int)DimensionsEnum._4_3_800x600); // enlarged photo
             // string filePath_enlarged2 = await _photoModifyService.ResizeImageByScale(formFile, userId, (int)DimensionsEnum._4_3_1280x960); // enlarged photo
 
-
             // if conversion fails
             if (filePath_165_sq is null || filePath_256_sq is null || filePath_enlarged is null)
             {
