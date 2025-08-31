@@ -13,8 +13,9 @@ export class MemberService {
   private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
 
   getAllMembers(): Observable<Member[]> {
+    
     let members$: Observable<Member[]>
-      = this.http.get<Member[]>(this._baseApiUrl + 'member/get-all');
+      = this.http.get<Member[]>(this._baseApiUrl + 'member/get-all');      
 
     return members$;
   }

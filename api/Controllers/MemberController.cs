@@ -16,9 +16,9 @@ public class MemberController(IMemberRepository memberRepository) : BaseApiContr
 
         Console.WriteLine(userId);
 
-        IEnumerable<AppUser>? appUsers = await memberRepository.GetAllAsync(cancellationToken);
+        IEnumerable<AppUser> appUsers = await memberRepository.GetAllAsync(cancellationToken);
 
-        if (appUsers is null)
+        if (!appUsers.Any())
             return NoContent();
 
         List<MemberDto> memberDtos = [];

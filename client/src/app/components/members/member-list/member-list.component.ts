@@ -31,6 +31,7 @@ export class MemberListComponent {
     allMember$.subscribe({
       next: (res) => {
         this.members = res;
+        console.log(res);
       }
     });
   }

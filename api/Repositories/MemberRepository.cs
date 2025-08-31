@@ -12,13 +12,12 @@ public class MemberRepository : IMemberRepository
         _collection = dbName.GetCollection<AppUser>("users");
     }
 
-    public async Task<IEnumerable<AppUser>?> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<AppUser>> GetAllAsync(CancellationToken cancellationToken)
     {
-        IEnumerable<AppUser> appUsers = await _collection.Find
+        List<AppUser> appUsers = await _collection.Find
                 (new BsonDocument()).ToListAsync(cancellationToken);
 
-        if (appUsers.Any())
-            return null;
+        Console.WriteLine(appUsers[1]);
 
         return appUsers;
     }
