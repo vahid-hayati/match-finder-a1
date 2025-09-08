@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 
 namespace image_processing.Interfaces;

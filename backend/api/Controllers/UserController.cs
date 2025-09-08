@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace api.Controllers;
 
 //PrimaryConstructor
-// [Authorize]
+[Authorize]
 public class UserController(IUserRepository userRepository) : BaseApiController
 {
     [HttpPut("update")]
@@ -26,7 +26,6 @@ public class UserController(IUserRepository userRepository) : BaseApiController
         return memberDto;
     }
 
-    [Authorize]
     [HttpPut("add-photo")]
     public async Task<ActionResult<Photo>> AddPhoto(
         [AllowedFileExtensions, FileSize(250_000, 4_000_000)]
@@ -56,12 +55,12 @@ public class UserController(IUserRepository userRepository) : BaseApiController
         {
             return Unauthorized("You are not logged in. please login again");
         }
-        
+
         UpdateResult? updateResult = await userRepository.SetMainPhotoAsync(userId, photoUrlIn, cancellationToken);
 
         return updateResult is null || !updateResult.IsModifiedCountAvailable
             ? BadRequest("Set as main photo failed. Try again in a few moments. If the issue persists contact the admin.")
-            : Ok(new { message = "Set this photo as main succeeded." });
+            : Ok("Set this photo as main succeeded.");
     }
 
     [HttpPut("delete-photo")]
@@ -76,6 +75,6 @@ public class UserController(IUserRepository userRepository) : BaseApiController
 
         return updateResult is null || !updateResult.IsModifiedCountAvailable
             ? BadRequest("Photo deletion failed. Try again in a few moments. If the issue persists contact the admin.")
-            : Ok(new { message = "Photo deleted successfully." });
+            : Ok("Photo deleted successfully.");
     }
 }

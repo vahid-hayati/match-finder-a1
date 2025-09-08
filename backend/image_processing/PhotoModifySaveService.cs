@@ -1,7 +1,9 @@
 using image_processing.Interfaces;
 using image_processing.Helpers;
+using Microsoft.AspNetCore.Http;
 using SkiaSharp;
 using MongoDB.Bson;
+using Microsoft.AspNetCore.Hosting;
 
 namespace image_processing.Services;
 

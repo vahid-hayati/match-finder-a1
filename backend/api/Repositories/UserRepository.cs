@@ -85,11 +85,6 @@ public class UserRepository : IUserRepository
 
     public async Task<UpdateResult?> SetMainPhotoAsync(string userId, string photoUrlIn, CancellationToken cancellationToken)
     {
-        if (userId is null) return null;
-
-        if (!ObjectId.TryParse(userId, out var objectId))
-            return null;
-
         #region  UNSET the previous main photo: Find the photo with IsMain True; update IsMain to False
         // set query
         FilterDefinition<AppUser>? filterOld = Builders<AppUser>.Filter
@@ -119,14 +114,9 @@ public class UserRepository : IUserRepository
     {
         if (string.IsNullOrEmpty(url_165_In)) return null;
 
-        if (userId is null) return null;
-
-        if (!ObjectId.TryParse(userId, out var objectId))
-            return null;
-
         // Find the photo in AppUser
         Photo photo = await _collection.AsQueryable()
-            .Where(appUser => appUser.Id == userId) // filter by user email
+            .Where(appUser => appUser.Id == userId) // filter by user Id
             .SelectMany(appUser => appUser.Photos) // flatten the Photos array
             .Where(photo => photo.Url_165 == url_165_In) // filter by photo url
             .FirstOrDefaultAsync(cancellationToken); // return the photo or null
@@ -143,7 +133,7 @@ public class UserRepository : IUserRepository
             return null;
         }
 
-        var update = Builders<AppUser>.Update
+        UpdateDefinition<AppUser> update = Builders<AppUser>.Update
             .PullFilter(appUser => appUser.Photos, photo => photo.Url_165 == url_165_In);
 
         return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, update, null, cancellationToken);
