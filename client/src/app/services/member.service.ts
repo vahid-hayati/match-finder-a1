@@ -10,13 +10,17 @@ import { environment } from '../../environments/environment.development';
 export class MemberService {
   http = inject(HttpClient);
 
-  private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
+  private readonly _baseApiUrl: string = environment.apiUrl + 'api/member/';
 
   getAllMembers(): Observable<Member[]> {
     
     let members$: Observable<Member[]>
-      = this.http.get<Member[]>(this._baseApiUrl + 'member/get-all');      
+      = this.http.get<Member[]>(this._baseApiUrl + 'get-all');      
 
     return members$;
+  }
+
+  getByUserName(userNameInput: string): Observable<Member | undefined> {
+    return this.http.get<Member>(this._baseApiUrl + 'get-by-username/' + userNameInput);
   }
 }

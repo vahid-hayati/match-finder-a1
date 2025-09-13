@@ -1,0 +1,52 @@
+<div class="container">
+  <section class="head">
+    <h1 class="title">Your Profile</h1>
+    <mat-card class="warning">
+    
+    </mat-card>
+  </section>
+  @if (member) {
+  <div class="content">
+    <section class="user-card">
+      <mat-card>
+        @for (photo of member.photos; track $index) {
+        @if (photo) {
+        <img mat-card-image src="{{apiUrl + photo.url_165}}" width="240" height="240" priority
+          alt="Photo of {{member.userName}}">
+        }
+        }
+        @if (member.photos.length === 0) {
+        <img mat-card-image src="member.jpg" width="240" height="240" priority
+          alt="Photo of {{member.userName}}">
+        }
+        <mat-card-content>
+          <div>
+            <strong>Location</strong>
+            <p>{{ member.city | uppercase }}, {{ member.country | uppercase }}</p>
+          </div>
+          <div>
+            <strong>Age</strong>
+            <p>{{ member.age }}</p>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="submit" 
+            mat-raised-button color="primary">
+            Save Changes
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </section>
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="user-info">
+      <mat-tab label="About {{member.userName}}">
+        
+      </mat-tab>
+      <mat-tab label="Edit Photos">
+        <div class="tab-contents">
+          <app-photo-editor [memberInput]="member"></app-photo-editor>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  }
+</div>

@@ -58,7 +58,8 @@ public static class Mappers
             Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
             Gender: appUser.Gender,
             City: appUser.City,
-            Country: appUser.Country
+            Country: appUser.Country,
+            Photos: appUser.Photos
         );
     }
 

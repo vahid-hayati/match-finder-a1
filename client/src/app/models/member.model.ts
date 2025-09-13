@@ -7,4 +7,5 @@ export interface Member {
     gender: string;
     city: string;
     country: string;
+    photos: Photo[];
 }
