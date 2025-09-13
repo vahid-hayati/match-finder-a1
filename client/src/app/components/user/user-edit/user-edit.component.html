@@ -10,7 +10,7 @@
     <section class="user-card">
       <mat-card>
         @for (photo of member.photos; track $index) {
-        @if (photo) {
+        @if (photo.isMain) {
         <img mat-card-image src="{{apiUrl + photo.url_165}}" width="240" height="240" priority
           alt="Photo of {{member.userName}}">
         }

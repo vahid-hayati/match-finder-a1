@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "4455f5dd-c0cc-44fd-bb22-0cd27334d008",
+		"name": "Election",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25270784"
+	},
+	"item": [
+		{
+			"name": "president",
+			"item": [
+				{
+					"name": "register president",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"NationalCode\": \"3334567891\",\n    \"FirstName\": \"Amir Ali\",\n    \"LastName\": \"Hoseini\",\n    \"Age\": 20,\n    \"Education\": \"Master\",\n    \"Email\": null              \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}/api/president/register",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"api",
+								"president",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all presidents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{address}}/api/president/get-all",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"api",
+								"president",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vote",
+			"item": [
+				{
+					"name": "add vote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"NationalCode\": \"3334567890\",\n    \"FirstName\": \"Ali\",\n    \"LastName\": \"Hamidi\",\n    \"Age\": 20,\n    \"SelectedPresidentId\": \"64a6049aad6c058ee42d6a80\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}/api/vote/add",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"api",
+								"vote",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all votes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{address}}/api/vote/get-all",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"api",
+								"vote",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get president votes by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{address}}/api/vote/get-president-votes-by-id/64a5f65f56090e4d9f658a1f",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"api",
+								"vote",
+								"get-president-votes-by-id",
+								"64a5f65f56090e4d9f658a1f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
