@@ -38,7 +38,6 @@ export class PhotoEditorComponent implements OnInit {
     this.loggedInUser = this.accountService.loggedInUserSig();
   }
 
-
   ngOnInit(): void {
     this.initializeUploader();
   }
@@ -57,14 +56,13 @@ export class PhotoEditorComponent implements OnInit {
         removeAfterUpload: true,
         autoUpload: false,
         maxFileSize: 4_000_000, // bytes / 4MB
-        // itemAlias: 'file'
       });
 
       this.uploader.onAfterAddingFile = (file) => {
         file.withCredentials = false;
       }
 
-       this.uploader.onSuccessItem = (item, response, status, headers) => {
+       this.uploader.onSuccessItem = (item, response) => {
         if (response) {
           const photo: Photo = JSON.parse(response);
           this.member?.photos.push(photo);          

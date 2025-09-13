@@ -9,7 +9,7 @@
         <div class="gallery">
             @for (photo of member.photos; track $index) {
             <div class="photos">
-                <img src="{{apiUrl + photo.url_165}}" width="165" height="165" alt="{{member.userName}} photo" priority>
+                <img src="{{apiUrl + photo.url_165}}" width="165" height="165" alt="{{member.userName}} photo">
                 <!-- <div class="buttons">
                     <button (click)="setMainPhotoComp(photo.url_165)" mat-stroked-button color="primary"
                         [disabled]="photo.isMain">Set profile
@@ -59,7 +59,7 @@
             <div>
                 <p>{{ item?.file?.name }}</p>
                 @if (uploader.options.isHTML5) {
-                <p nowrap> {{ item?.file?.size / 1024 / 1024 | number:'.2' }} MB</p>
+                <p> {{ item?.file?.size / 1024 / 1024 | number:'.2' }} MB</p>
                 }
             </div>
             }
