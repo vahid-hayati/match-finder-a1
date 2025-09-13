@@ -6,13 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MemberService } from '../../../services/member.service';
 import { Observable } from 'rxjs';
+import { MemberCardComponent } from '../member-card/member-card.component';
 
 @Component({
   selector: 'app-member-list',
   standalone: true,
   imports: [
     RouterLink,
-    MatCardModule, MatIconModule
+    MatCardModule, MatIconModule, MemberCardComponent
   ],
   templateUrl: './member-list.component.html',
   styleUrl: './member-list.component.scss'
