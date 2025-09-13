@@ -58,8 +58,6 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
         if (isTokenValid)
             token = authHeader.ToString().Split(' ').Last();
 
-        Console.WriteLine(token);
-
         if (string.IsNullOrEmpty(token))
             return Unauthorized("Token is expired or invalid. Login again.");
 

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Member } from '../../../models/member.model';
 
 @Component({
   selector: 'app-member-card',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './member-card.component.scss'
 })
 export class MemberCardComponent {
-
+@Input('memberInput') memberIn: Member | undefined; // memberInput is a contract
 }
