@@ -11,12 +11,12 @@
       <mat-card>
         @for (photo of member.photos; track $index) {
         @if (photo.isMain) {
-        <img mat-card-image src="{{apiUrl + photo.url_165}}" width="240" height="240" priority
+        <img mat-card-image src="{{apiUrl + photo.url_165}}" width="240" height="240" 
           alt="Photo of {{member.userName}}">
         }
         }
         @if (member.photos.length === 0) {
-        <img mat-card-image src="member.jpg" width="240" height="240" priority
+        <img mat-card-image src="member.jpg" width="240" height="240" 
           alt="Photo of {{member.userName}}">
         }
         <mat-card-content>

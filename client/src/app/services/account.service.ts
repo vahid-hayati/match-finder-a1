@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { LoggedIn } from '../models/logged-in.model';
-import { AppUser } from '../models/app-user.model';
+import { RegisterUser } from '../models/register-user.model';
 import { map, Observable } from 'rxjs';
 import { Login } from '../models/login.model';
 import { isPlatformBrowser } from '@angular/common';
@@ -16,11 +16,11 @@ export class AccountService {
   private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
   platformId = inject(PLATFORM_ID);
   router = inject(Router);
-  loggedInUserSig = signal<LoggedIn | null>(null);  
+  loggedInUserSig = signal<LoggedIn | null>(null);
 
   // responseSignal = signal<LoggedIn | null>(null);
 
-  register(userInput: AppUser): Observable<LoggedIn | null> {
+  register(userInput: RegisterUser): Observable<LoggedIn | null> {
     return this.http.post<LoggedIn>(this._baseApiUrl + 'account/register', userInput).pipe(
       map(res => {
         if (res) {

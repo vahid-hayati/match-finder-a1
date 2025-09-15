@@ -26,9 +26,8 @@ export class UserEditComponent implements OnInit {
   apiUrl = environment.apiUrl;
   member: Member | undefined;
 
-
   ngOnInit(): void {
-      this.getMember();
+    this.getMember();
   }
 
   getMember(): void {

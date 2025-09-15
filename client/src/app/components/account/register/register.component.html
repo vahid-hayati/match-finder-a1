@@ -38,31 +38,6 @@
                 }
             </mat-form-field>
 
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>Date of Birth</mat-label>
-                <input [formControl]="DateOfBirthCtrl" type="text" [matDatepicker]="dp3" matInput>
-                <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
-                <mat-datepicker #dp3 touchUi disabled="false"></mat-datepicker>
-                @if (DateOfBirthCtrl.hasError("required")) {
-                <mat-error>This field is required</mat-error>
-                }
-            </mat-form-field> -->
-
-            <mat-form-field appearance="outline">
-                <mat-label>Gender</mat-label>
-                <input type="text" [formControl]="GenderCtrl" matInput>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>City</mat-label>
-                <input type="text" [formControl]="CityCtrl" matInput>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Country</mat-label>
-                <input type="text" [formControl]="CountryCtrl" matInput>
-            </mat-form-field>
-
             <button (click)="register()" mat-flat-button color="parimary" [disabled]="registerFg.invalid">
                 Register
             </button>

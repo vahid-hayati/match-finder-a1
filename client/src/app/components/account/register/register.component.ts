@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppUser } from '../../../models/app-user.model';
+import { RegisterUser } from '../../../models/register-user.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subscribedRegisterUser?.unsubscribe();
+    this.subscribedRegisterUser?.unsubscribe();
   }
 
   //#region registerFg 
@@ -72,33 +72,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
   get DateOfBirthCtrl(): FormControl {
     return this.registerFg.get('dateOfBirthCtrl') as FormControl;
   }
-
-  get GenderCtrl(): FormControl {
-    return this.registerFg.get('genderCtrl') as FormControl;
-  }
-
-  get CityCtrl(): FormControl {
-    return this.registerFg.get('cityCtrl') as FormControl;
-  }
-
-  get CountryCtrl(): FormControl {
-    return this.registerFg.get('countryCtrl') as FormControl;
-  }
   //#endregion
 
   register(): void {
     const dob: string | undefined = this.getDateOnly(this.DateOfBirthCtrl.value);
 
     if (this.PasswordCtrl.value === this.ConfirmPasswordCtrl.value) {
-      let user: AppUser = {
+      let user: RegisterUser = {
         email: this.EmailCtrl.value,
         userName: this.UserNameCtrl.value,
         password: this.PasswordCtrl.value,
         confirmPassword: this.ConfirmPasswordCtrl.value,
         dateOfBirth: dob,
-        gender: this.GenderCtrl.value,
-        city: this.CityCtrl.value,
-        country: this.CountryCtrl.value
       }
 
       this.subscribedRegisterUser = this.accountService.register(user).subscribe({
