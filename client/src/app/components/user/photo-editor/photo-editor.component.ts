@@ -26,13 +26,13 @@ import { Photo } from '../../../models/photo.model';
 export class PhotoEditorComponent implements OnInit {
   @Input('memberInput') member: Member | undefined; // from user-edit
   loggedInUser: LoggedIn | null | undefined;
-  errorGlob: string | undefined;
+  // errorGlob: string | undefined;
   apiUrl: string = environment.apiUrl;
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
   private accountService = inject(AccountService);
   // private userService = inject(UserService);
-  private snackBar = inject(MatSnackBar);
+  // private snackBar = inject(MatSnackBar);
 
   constructor() {
     this.loggedInUser = this.accountService.loggedInUserSig();

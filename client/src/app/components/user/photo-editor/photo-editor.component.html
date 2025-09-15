@@ -25,8 +25,8 @@
             <div class="upload-photo-area">
                 <mat-card ng2FileDrop (fileOver)="fileOverBase($event)" (click)="fileInput.click()"
                     [uploader]="uploader" [ngClass]="{
-                        'nv-file-not-over': !hasBaseDropZoneOver,
-                        'nv-file-over': hasBaseDropZoneOver
+                        'file-not-over': !hasBaseDropZoneOver,
+                        'file-over': hasBaseDropZoneOver
                         }">
                     <mat-card-header>
                         <mat-card-title>Add Photos</mat-card-title>

@@ -49,13 +49,13 @@ main {
                 }
             }
 
-            .nv-file-not-over {
+            .file-not-over {
                 border: rgb(206, 206, 206) solid 1px;
 
                 @include uploaderMixin();
             }
 
-            .nv-file-over {
+            .file-over {
                 border: dotted 3px rgb(255, 114, 114);
                 background-color: rgb(253, 237, 240);
 
