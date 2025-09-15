@@ -28,7 +28,12 @@
         @if (accountService.loggedInUserSig(); as user) {
         <div class="user-info">
             <div class="profile-info">
-                <img src="images/nature.jpg" alt="{{user.userName[0] | titlecase}}">
+                @if (user.profilePhotoUrl) {
+                <img src="{{apiUrl + user.profilePhotoUrl}}" alt="">
+                }
+                @else {
+                <img src="member.jpg" alt="{{user.userName[0] | titlecase}}">
+                }
                 <!-- <p>{{ user.name[0] | titlecase }}</p> -->
             </div>
             <div>
