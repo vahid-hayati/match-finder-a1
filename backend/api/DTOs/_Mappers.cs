@@ -38,7 +38,6 @@ public static class Mappers
             ProfilePhotoUrl: appUser.Photos.FirstOrDefault(photo => photo.IsMain)?.Url_165
         );
     }
-
     public static MemberDto ConvertAppUserToMemberDto(AppUser appUser)
     {
         // MemberDto memberDto = new(

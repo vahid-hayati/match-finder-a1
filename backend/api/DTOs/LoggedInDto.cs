@@ -7,5 +7,5 @@ public record LoggedInDto(
     string UserName,
     int Age,
     string Token,
-    [Optional] string ProfilePhotoUrl
+    [Optional] string? ProfilePhotoUrl
 );

@@ -16,7 +16,7 @@ export class AccountService {
   private readonly _baseApiUrl: string = environment.apiUrl + 'api/';
   platformId = inject(PLATFORM_ID);
   router = inject(Router);
-  loggedInUserSig = signal<LoggedIn | null>(null);
+  loggedInUserSig = signal<LoggedIn | null>(null);  
 
   // responseSignal = signal<LoggedIn | null>(null);
 
