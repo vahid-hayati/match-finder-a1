@@ -9,7 +9,7 @@ public static class ApplicationServiceExtensions
     public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration configuration)
     {
         #region MongoDbSettings
-        ///// get values from this file: appsettings.Development.json /////
+        ///// get values from this file: appsettings.vc.json /////
         // get section
         services.Configure<MongoDbSettings>(configuration.GetSection(nameof(MongoDbSettings)));
 
