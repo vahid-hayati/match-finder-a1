@@ -25,9 +25,9 @@ export class UserService {
 //   return this._http.put<ApiResponse>(this._apiUrl + 'set-main-photo', null, { params: queryParams });
 // }
 
-  // deletePhoto(url_165In: string): Observable<ApiResponse> {
-  //   let queryParams = new HttpParams().set('photoUrlIn', url_165In);
+  deletePhoto(url_165In: string): Observable<ApiResponse> {
+    let queryParams = new HttpParams().set('photoUrlIn', url_165In);
 
-  //   return this._http.put<ApiResponse>(this._apiUrl + 'delete-photo', null, { params: queryParams });
-  // }
+    return this._http.put<ApiResponse>(this._apiUrl + 'delete-photo', null, { params: queryParams });
+  }
 }
