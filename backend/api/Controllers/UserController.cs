@@ -47,7 +47,7 @@ public class UserController(IUserRepository userRepository) : BaseApiController
     }
 
     [HttpPut("set-main-photo")]
-    public async Task<ActionResult> SetMainPhoto(string photoUrlIn, CancellationToken cancellationToken)
+    public async Task<ActionResult<Response>> SetMainPhoto(string photoUrlIn, CancellationToken cancellationToken)
     {
         string? userId = User.GetUserId();
 
@@ -60,11 +60,13 @@ public class UserController(IUserRepository userRepository) : BaseApiController
 
         return updateResult is null || !updateResult.IsModifiedCountAvailable
             ? BadRequest("Set as main photo failed. Try again in a few moments. If the issue persists contact the admin.")
-            : Ok("Set this photo as main succeeded.");
+            : Ok(new Response(
+                Message: "Set this photo as main succeeded."
+            ));
     }
 
     [HttpPut("delete-photo")]
-    public async Task<ActionResult> DeletePhoto(string photoUrlIn, CancellationToken cancellationToken)
+    public async Task<ActionResult<Response>> DeletePhoto(string photoUrlIn, CancellationToken cancellationToken)
     {
         string? userId = User.GetUserId();
 
@@ -75,6 +77,8 @@ public class UserController(IUserRepository userRepository) : BaseApiController
 
         return updateResult is null || !updateResult.IsModifiedCountAvailable
             ? BadRequest("Photo deletion failed. Try again in a few moments. If the issue persists contact the admin.")
-            : Ok("Photo deleted successfully.");
+            : Ok(new Response(
+                Message: "Photo deleted successfully."
+            ));
     }
 }
