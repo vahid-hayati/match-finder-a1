@@ -50,8 +50,6 @@ main {
             }
 
             .file-not-over {
-                border: rgb(206, 206, 206) solid 1px;
-
                 @include uploaderMixin();
             }
 

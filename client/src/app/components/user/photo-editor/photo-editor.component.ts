@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, inject, Input, OnInit } from '@angular/core';
 import { Member } from '../../../models/member.model';
 import { LoggedIn } from '../../../models/logged-in.model';
 import { environment } from '../../../../environments/environment.development';
@@ -34,11 +34,9 @@ export class PhotoEditorComponent implements OnInit {
   // private userService = inject(UserService);
   // private snackBar = inject(MatSnackBar);
 
-  constructor() {
-    this.loggedInUser = this.accountService.loggedInUserSig();
-  }
-
   ngOnInit(): void {
+    this.loggedInUser = this.accountService.loggedInUserSig();
+
     this.initializeUploader();
   }
 
@@ -55,19 +53,30 @@ export class PhotoEditorComponent implements OnInit {
         allowedFileType: ['image'],
         removeAfterUpload: true,
         autoUpload: false,
-        maxFileSize: 4_000_000, // bytes / 4MB
+        maxFileSize: 4_000_000 // bytes / 4MB
       });
 
       this.uploader.onAfterAddingFile = (file) => {
         file.withCredentials = false;
       }
 
-       this.uploader.onSuccessItem = (item, response) => {
+      this.uploader.onSuccessItem = (item, response) => {
         if (response) {
           const photo: Photo = JSON.parse(response);
-          this.member?.photos.push(photo);          
+          this.member?.photos.push(photo);
+
+          if (this.member?.photos.length === 1)
+            this.setNavbarProfilePhoto(photo.url_165);
         }
       }
+    }
+  }
+
+  setNavbarProfilePhoto(url_165: string): void {
+    if (this.loggedInUser) {
+      this.loggedInUser.profilePhotoUrl = url_165;
+
+      this.accountService.loggedInUserSig.set(this.loggedInUser);
     }
   }
 }
