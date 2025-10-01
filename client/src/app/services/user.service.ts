@@ -14,20 +14,24 @@ export class UserService {
   private readonly _apiUrl = environment.apiUrl + 'api/user/';
 
   setMainPhoto(url_165: string): Observable<ApiResponse> {
+    let queryParams = new HttpParams().set('photoUrlIn', url_165);
+
     return this._http.put<ApiResponse>(this._apiUrl + 'set-main-photo', null, {
-       params: new HttpParams().set('photoUrlIn', url_165)
-      })
+      params: queryParams
+    });
   }
 
-// setMainPhoto(url_165: string): Observable<ApiResponse> {
-//   let queryParams = new HttpParams().set('photoUrlIn', url_165);
+  deletePhoto(url_165: string): Observable<ApiResponse> {
+    let queryParams = new HttpParams().set('photoUrlIn', url_165);
 
-//   return this._http.put<ApiResponse>(this._apiUrl + 'set-main-photo', null, { params: queryParams });
-// }
-
-  deletePhoto(url_165In: string): Observable<ApiResponse> {
-    let queryParams = new HttpParams().set('photoUrlIn', url_165In);
-
-    return this._http.put<ApiResponse>(this._apiUrl + 'delete-photo', null, { params: queryParams });
+    return this._http.put<ApiResponse>(this._apiUrl + 'delete-photo', null, {
+      params: queryParams
+    });
   }
+
+  // setMainPhoto(url_165: string): Observable<ApiResponse> {
+  //   let queryParams = new HttpParams().set('photoUrlIn', url_165);
+
+  //   return this._http.put<ApiResponse>(this._apiUrl + 'set-main-photo', null, { params: queryParams });
+  // }
 }

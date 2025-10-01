@@ -85,7 +85,6 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   setMainPhotoComp(url_165In: string): void {
-
     this._userService.setMainPhoto(url_165In)
       .pipe(take(1))
       .subscribe({
@@ -93,11 +92,11 @@ export class PhotoEditorComponent implements OnInit {
           if (response && this.member) {
 
             for (const photo of this.member.photos) {
-              //   // unset previous main
+            //   //   // unset previous main
               if (photo.isMain === true)
                 photo.isMain = false;
 
-              //   // set new selected main
+            //   //   // set new selected main
               if (photo.url_165 === url_165In) {
                 photo.isMain = true;
 
