@@ -12,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Photo } from '../../../models/photo.model';
+import { UserService } from '../../../services/user.service';
+import { ApiResponse } from '../../../models/helpers/apiResponse.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-photo-editor',
@@ -30,12 +33,13 @@ export class PhotoEditorComponent implements OnInit {
   apiUrl: string = environment.apiUrl;
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
-  private accountService = inject(AccountService);
-  // private userService = inject(UserService);
+  private _accountService = inject(AccountService);
+  private _snackBar = inject(MatSnackBar);
+  private _userService = inject(UserService);
   // private snackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
-    this.loggedInUser = this.accountService.loggedInUserSig();
+    this.loggedInUser = this._accountService.loggedInUserSig();
 
     this.initializeUploader();
   }
@@ -76,7 +80,47 @@ export class PhotoEditorComponent implements OnInit {
     if (this.loggedInUser) {
       this.loggedInUser.profilePhotoUrl = url_165;
 
-      this.accountService.loggedInUserSig.set(this.loggedInUser);
+      this._accountService.loggedInUserSig.set(this.loggedInUser);
     }
+  }
+
+  setMainPhotoComp(url_165In: string): void {
+
+    this._userService.setMainPhoto(url_165In)
+      .pipe(take(1))
+      .subscribe({
+        next: (response: ApiResponse) => {
+          if (response && this.member) {
+
+            for (const photo of this.member.photos) {
+              //   // unset previous main
+              if (photo.isMain === true)
+                photo.isMain = false;
+
+              //   // set new selected main
+              if (photo.url_165 === url_165In) {
+                photo.isMain = true;
+
+                // update navbar/profile photo
+                this.loggedInUser!.profilePhotoUrl = url_165In;
+                this._accountService.setCurrentUser(this.loggedInUser!);
+              }
+            }
+
+            // another way of for loop
+            // this.member.photos.forEach(photo => {
+
+            // })
+
+            this._snackBar.open(response.message, 'close', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              duration: 7000
+            });
+
+            console.log(this.member.photos);
+          }
+        }
+      });
   }
 }
