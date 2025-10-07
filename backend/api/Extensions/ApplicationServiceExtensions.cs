@@ -1,4 +1,5 @@
 using System.Text;
+using api.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -34,6 +35,12 @@ public static class ApplicationServiceExtensions
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
             });
         #endregion Cors
+
+        #region Other
+
+        services.AddScoped<LogUserActivity>(); // monitor/log userActivity
+
+        #endregion Other
 
         return services;
     }
