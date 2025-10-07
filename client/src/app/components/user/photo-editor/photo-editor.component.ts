@@ -36,9 +36,10 @@ export class PhotoEditorComponent implements OnInit {
   private _accountService = inject(AccountService);
   private _snackBar = inject(MatSnackBar);
   private _userService = inject(UserService);
+  numbers: number[] = [1, 2, 3, 4, 5, 6];
   // private snackBar = inject(MatSnackBar);
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.loggedInUser = this._accountService.loggedInUserSig();
 
     this.initializeUploader();
@@ -121,5 +122,31 @@ export class PhotoEditorComponent implements OnInit {
           }
         }
       });
+  }
+
+  spliceList(): void {
+    this.numbers.splice(1, 1);
+
+    console.log(this.numbers);
+  }
+
+  deletePhotoComp(url_165: string, index: number): void {
+    console.log(index);
+
+    this._userService.deletePhoto(url_165)
+      .pipe(take(1))
+      .subscribe({
+        next: (response: ApiResponse) => {
+          if (response && this.member) {
+            this.member.photos.splice(index, 1);
+
+            this._snackBar.open(response.message, 'Close', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              duration: 7000
+            })
+          }
+        }
+      })
   }
 }

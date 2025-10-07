@@ -10,8 +10,9 @@ import { ApiResponse } from '../models/helpers/apiResponse.model';
 })
 export class UserService {
   private _http = inject(HttpClient);
-  members: Member[] = [];
   private readonly _apiUrl = environment.apiUrl + 'api/user/';
+  
+  members: Member[] = [];
 
   setMainPhoto(url_165: string): Observable<ApiResponse> {
     let queryParams = new HttpParams().set('photoUrlIn', url_165);
@@ -28,10 +29,4 @@ export class UserService {
       params: queryParams
     });
   }
-
-  // setMainPhoto(url_165: string): Observable<ApiResponse> {
-  //   let queryParams = new HttpParams().set('photoUrlIn', url_165);
-
-  //   return this._http.put<ApiResponse>(this._apiUrl + 'set-main-photo', null, { params: queryParams });
-  // }
 }

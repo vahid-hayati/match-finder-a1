@@ -1,6 +1,10 @@
 <main>
     @if (member && loggedInUser) {
     <section class="top">
+
+        <button (click)="spliceList()">
+            splice
+        </button>
         <div>
             @if (member.photos.length === 0) {
             <mat-error>Your album is empty. You may upload some photos.</mat-error>
@@ -14,10 +18,10 @@
                     <button (click)="setMainPhotoComp(photo.url_165)" mat-stroked-button color="primary"
                         [disabled]="photo.isMain">Set profile
                     </button>
-                    <!-- <button (click)="deletePhotoComp(photo.url_165, $index)" mat-mini-fab color="warn"
+                    <button (click)="deletePhotoComp(photo.url_165, $index)" mat-mini-fab color="warn"
                         [disabled]="photo.isMain">
                         <mat-icon>delete</mat-icon>
-                    </button> -->
+                    </button>
                 </div>
             </div>
             }
