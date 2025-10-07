@@ -8,14 +8,18 @@ public static class Mappers
     {
         return new AppUser(
             Id: null,
-            Email: registerDto.Email,
-            UserName: registerDto.UserName,
+            Email: registerDto.Email.Trim().ToLower(),
+            UserName: registerDto.UserName.Trim().ToLower(),
             Password: registerDto.Password,
             ConfirmPassword: registerDto.ConfirmPassword,
             DateOfBirth: registerDto.DateOfBirth,
-            Gender: "",
-            City: "",
-            Country: "",
+            LastActive: new DateTime(),
+            Introduction: string.Empty,
+            LookingFor: string.Empty,
+            Interests: string.Empty,
+            Gender: string.Empty,
+            City: string.Empty,
+            Country: string.Empty,
             Photos: []
         );
     }
@@ -55,6 +59,10 @@ public static class Mappers
             Email: appUser.Email,
             UserName: appUser.UserName,
             Age: DateTimeExtensions.CalculateAge(appUser.DateOfBirth),
+            LastActive: appUser.LastActive,
+            Introduction: appUser.Introduction,
+            LookingFor: appUser.LookingFor,
+            Interests: appUser.Interests,
             Gender: appUser.Gender,
             City: appUser.City,
             Country: appUser.Country,

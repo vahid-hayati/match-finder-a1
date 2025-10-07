@@ -12,10 +12,14 @@ public record AppUser(
     string ConfirmPassword,
     [Range(typeof(DateOnly), "1900-01-01", "2050-01-01", ErrorMessage = "Date of birth must be between 1900 and 2050.")]
     DateOnly DateOfBirth,
+    DateTime LastActive,
     string Gender,
+    string Introduction,
+    string LookingFor,
+    string Interests,
     string City,
     string Country,
-    List<Photo> Photos 
+    List<Photo> Photos
 );
 
 // DTO => Data/Transfer/Object

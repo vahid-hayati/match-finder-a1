@@ -1,10 +1,6 @@
 <main>
     @if (member && loggedInUser) {
     <section class="top">
-
-        <button (click)="spliceList()">
-            splice
-        </button>
         <div>
             @if (member.photos.length === 0) {
             <mat-error>Your album is empty. You may upload some photos.</mat-error>
