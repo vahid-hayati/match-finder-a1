@@ -8,6 +8,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { loadingInterceptor } from './interceptors/loading.interceptor';
+import { errorInterceptor } from './interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +16,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
-    provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor]))
+    provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor, errorInterceptor]))
   ]
 };
