@@ -43,10 +43,10 @@
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="user-info">
       <mat-tab label="About {{member.userName}}">
         <div class="tab-contents">
-          <form [formGroup]="userEditFg" (ngSubmit)="userEditFg.value" class="about-contents">
+          <form class="about-contents">
             <mat-form-field appearaance="outline">
               <mat-label>Introduction</mat-label>
-              <textarea cdkTextareaAutosize formControlName="introductionCtrl" [value]="member.introduction"
+              <textarea cdkTextareaAutosize [formControl]="IntroductionCtrl" [value]="member.introduction"
                 placeholder="Say something about your self" matInput>
                             {{IntroductionCtrl.value}}
                             </textarea>
@@ -54,12 +54,12 @@
               @if (IntroductionCtrl.hasError('maxlength')) {
               <mat-error>
                 Maximum of {{maxTextAreaChars}} characters is reached.
-              </mat-error>
+            </mat-error>
               }
             </mat-form-field>
             <mat-form-field appearaance="outline">
               <mat-label>Looking For</mat-label>
-              <textarea cdkTextareaAutosize formControlName="lookingForCtrl" placeholder="Enter what you're looking for"
+              <textarea cdkTextareaAutosize [formControl]="LookingForCtrl" placeholder="Enter what you're looking for"
                 matInput>
                             {{member.lookingFor}}
                             </textarea>
@@ -72,7 +72,7 @@
             </mat-form-field>
             <mat-form-field appearaance="outline">
               <mat-label>Interests</mat-label>
-              <textarea cdkTextareaAutosize formControlName="interestsCtrl" placeholder="Enter your interests" matInput>
+              <textarea cdkTextareaAutosize [formControl]="InterestsCtrl" placeholder="Enter your interests" matInput>
                         {{member.interests}}
                             </textarea>
               <mat-hint>{{InterestsCtrl.value?.length}} of {{maxTextAreaChars}}</mat-hint>
@@ -84,7 +84,7 @@
             </mat-form-field>
             <mat-form-field appearaance="outline">
               <mat-label>City</mat-label>
-              <input formControlName="cityCtrl" placeholder="Enter your city" matInput required>
+              <input [formControl]="CityCtrl" placeholder="Enter your city" matInput required>
               <mat-hint>Minimum of {{minInputChars}} characters is requried.</mat-hint>
               @if (CityCtrl.hasError('required')) {
               <mat-error>This field is required</mat-error>
@@ -102,7 +102,7 @@
             </mat-form-field>
             <mat-form-field appearaance="outline">
               <mat-label>Country</mat-label>
-              <input formControlName="countryCtrl" placeholder="Enter your country." matInput required>
+              <input [formControl]="CountryCtrl" placeholder="Enter your country." matInput required>
               <mat-hint>Minimum of {{minInputChars}} characters is requried.</mat-hint>
               @if (CountryCtrl.hasError('required')) {
               <mat-error>This field is required</mat-error>

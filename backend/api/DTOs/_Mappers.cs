@@ -13,8 +13,8 @@ public static class Mappers
             Password: registerDto.Password,
             ConfirmPassword: registerDto.ConfirmPassword,
             DateOfBirth: registerDto.DateOfBirth,
-            LastActive: new DateTime(),
-            Introduction: string.Empty,
+            LastActive: DateTime.UtcNow,
+            Introduction: string.Empty, // ""
             LookingFor: string.Empty,
             Interests: string.Empty,
             Gender: string.Empty,

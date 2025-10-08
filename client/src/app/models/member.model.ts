@@ -5,9 +5,9 @@ export interface Member {
     userName: string;
     age: number;
     lastActive: Date;
-    introduction?: string;
-    lookingFor?: string;
-    interests?: string;
+    introduction: string;
+    lookingFor: string;
+    interests: string;
     gender: string;
     city: string;
     country: string;

@@ -42,6 +42,14 @@ export class UserEditComponent implements OnInit {
   apiUrl = environment.apiUrl;
   member: Member | undefined;
 
+  userEditFg = this._fB.group({
+    introductionCtrl: ['', [Validators.maxLength(this.maxTextAreaChars)]],
+    lookingForCtrl: ['', [Validators.maxLength(this.maxTextAreaChars)]],
+    interestsCtrl: ['', [Validators.maxLength(this.maxTextAreaChars)]],
+    cityCtrl: ['', [Validators.minLength(this.minInputChars), Validators.maxLength(this.maxInputChars)]],
+    countryCtrl: ['', [Validators.minLength(this.minInputChars), Validators.maxLength(this.maxInputChars)]]
+  });
+
   ngOnInit(): void {
     this.getMember();
   }
@@ -63,14 +71,6 @@ export class UserEditComponent implements OnInit {
       }
     }
   }
-
-  userEditFg = this._fB.group({
-    introductionCtrl: ['', [Validators.maxLength(this.maxTextAreaChars)]],
-    lookingForCtrl: ['', [Validators.maxLength(this.maxTextAreaChars)]],
-    interestsCtrl: ['', [Validators.maxLength(this.maxTextAreaChars)]],
-    cityCtrl: ['', [Validators.minLength(this.minInputChars), Validators.maxLength(this.maxInputChars)]],
-    countryCtrl: ['', [Validators.minLength(this.minInputChars), Validators.maxLength(this.maxInputChars)]]
-  });
 
   get IntroductionCtrl(): FormControl {
     return this.userEditFg.get('introductionCtrl') as FormControl;
@@ -116,6 +116,8 @@ export class UserEditComponent implements OnInit {
               duration: 7000
             })
           }
+
+          this.userEditFg.markAsPristine();
         }
       })
     }

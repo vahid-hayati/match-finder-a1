@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Injectable({
   providedIn: 'root'
 })
-export class LoadinService {
+export class LoadingService {
   private _spinnerService = inject(NgxSpinnerService);
 
   loading(): void {
