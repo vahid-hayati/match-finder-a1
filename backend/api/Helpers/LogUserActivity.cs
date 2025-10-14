@@ -26,7 +26,7 @@ public class LogUserActivity(ILogger<LogUserActivity> _logger) : IAsyncActionFil
         {
             _ = loggedInUserId ?? throw new ArgumentException("Parameter cannot be null", nameof(loggedInUserId));
             return;
-        }
+        }   
 
         IAccountRepository? accountRepository = resultNext.HttpContext.RequestServices.GetRequiredService<IAccountRepository>();
 

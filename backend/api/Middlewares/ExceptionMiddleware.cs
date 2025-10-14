@@ -35,7 +35,7 @@ public class ExceptionMiddleware
         {
             _logger.LogError(ex, ex.Message);
 
-            context.Response.ContentType = "application/text";
+            context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             ApiException response = new()
