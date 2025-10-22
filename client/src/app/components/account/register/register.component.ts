@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ExampleService } from '../../../services/example.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   exampleService = inject(ExampleService);
   fB = inject(FormBuilder);
   subscribedRegisterUser: Subscription | undefined;
+  errors: string[] | undefined;
 
   minDate = new Date();
   maxDate = new Date();
@@ -88,7 +90,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
       this.subscribedRegisterUser = this.accountService.register(user).subscribe({
         next: (res) => console.log(res),
-        error: (err) => console.log(err.error)
+        error: (err: HttpErrorResponse) => {
+          if (err.error.errors) {
+            this.errors = err.error.errors
+          }
+        }
       })
     }
     else {

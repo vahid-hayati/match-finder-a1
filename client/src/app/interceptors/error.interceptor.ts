@@ -27,22 +27,22 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             }
             break;
           case 401: // Unauthorized
-            snack.open(err.error, 'Close', { horizontalPosition: 'center', verticalPosition: 'top', duration: 7000 });
+            snack.open('You are unauthorized', 'Close', { horizontalPosition: 'center', verticalPosition: 'top', duration: 7000 });
 
             if (isPlatformBrowser(platformId)) // check platform only for SSR
               localStorage.clear();
 
-            router.navigate(['account/login'])
+            router.navigateByUrl('account/login')
             break;
           case 403: // Forbiden
-            router.navigate(['/no-access']);
+            router.navigateByUrl('/no-access');
             break;
           case 404: // NotFound
-            router.navigate(['/not-found']);
+            router.navigateByUrl('/not-found');
             break;
           case 500: // Server Erros
             const navigationExtras: NavigationExtras = { state: { error: err.error } };
-            router.navigate(['/server-error'], navigationExtras);
+            router.navigateByUrl('/server-error', navigationExtras);
             break;
           default: // All other errors
             snack.open('Something unexpected went wrong.', 'Close', { horizontalPosition: 'center', verticalPosition: 'top', duration: 7000 });
