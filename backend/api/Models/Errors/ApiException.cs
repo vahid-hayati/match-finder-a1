@@ -8,3 +8,12 @@ public class ApiException
     required public string? Details { get; set; }
     required public DateTime Time { get; set; }    
 };
+
+// public record ApiException(
+//     [property: BsonId, BsonRepresentation(BsonType.ObjectId)]
+//     string? Id,
+//     int StatusCode,
+//     string Message,
+//     string Details,
+//     DateTime Time
+// );
