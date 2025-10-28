@@ -1,4 +1,4 @@
-namespace image_processing.Helpers;
+namespace Image_Processing_WwwRoot.Helpers;
 
 public class PhotoStandardSize
 {

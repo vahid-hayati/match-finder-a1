@@ -1,6 +1,6 @@
 using api.Services;
-using image_processing.Interfaces;
-using image_processing.Services;
+using Image_Processing_WwwRoot.Interfaces;
+using Image_Processing_WwwRoot.Services;
 
 namespace api.Extensions;
 

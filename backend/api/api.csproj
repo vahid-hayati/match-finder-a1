@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../image_processing/image_processing.csproj" />
+    <ProjectReference Include="../Image_Processing_WwwRoot/Image_Processing_WwwRoot.csproj" />
   </ItemGroup>
 
 </Project>

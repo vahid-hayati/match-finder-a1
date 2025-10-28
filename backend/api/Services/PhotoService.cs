@@ -1,5 +1,5 @@
-using image_processing.Helpers;
-using image_processing.Interfaces;
+using Image_Processing_WwwRoot.Helpers;
+using Image_Processing_WwwRoot.Interfaces;
 
 namespace api.Services;
 

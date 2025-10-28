@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 
-namespace image_processing.Interfaces;
+namespace Image_Processing_WwwRoot.Interfaces;
 
 public interface IPhotoModifySaveService
 {
