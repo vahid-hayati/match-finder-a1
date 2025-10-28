@@ -1,4 +1,6 @@
 using api.Extensions;
+using api.Helpers;
+using api.Models.Helpers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers;
@@ -7,31 +9,34 @@ namespace api.Controllers;
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
 
         if (userId is null)
             return Unauthorized("You are not login. Please login again");
 
-        IEnumerable<AppUser> appUsers = await memberRepository.GetAllAsync(cancellationToken);
+        PagedList<AppUser> pagedAppUsers = await memberRepository.GetAllAsync(paginationParams, cancellationToken);
 
-        if (!appUsers.Any())
+        if (pagedAppUsers.Count == 0)
             return NoContent();
+
+        /*  1- Response only exists in Contoller. So we have to set PaginationHeader here before converting AppUser to UserDto.
+        If we convert AppUser before here, we'll lose PagedList's pagination values, e.g. CurrentPage, PageSize, etc.
+        */
+        PaginationHeader paginationHeader = new(
+            CurrentPage: pagedAppUsers.CurrentPage,
+            ItemsPerPage: pagedAppUsers.PageSize,
+            TotalItems: pagedAppUsers.TotalItems,
+            TotalPages: pagedAppUsers.TotalPages
+        );
+
+        Response.AddPaginationHeader(paginationHeader);
 
         List<MemberDto> memberDtos = [];
 
-        foreach (AppUser user in appUsers)
+        foreach (AppUser user in pagedAppUsers)
         {
-            // MemberDto memberDto = new(
-            //     Email: user.Email,
-            //     UserName: user.UserName,
-            //     Age: user.Age,
-            //     Gender: user.Gender,
-            //     City: user.City,
-            //     Country: user.Country
-            // );
-
             MemberDto memberDto = Mappers.ConvertAppUserToMemberDto(user);
 
             memberDtos.Add(memberDto);

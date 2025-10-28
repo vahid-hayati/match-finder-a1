@@ -1,4 +1,6 @@
 
+using api.Helpers;
+
 namespace api.Repositories;
 
 public class MemberRepository : IMemberRepository
@@ -12,10 +14,13 @@ public class MemberRepository : IMemberRepository
         _collection = dbName.GetCollection<AppUser>("users");
     }
 
-    public async Task<IEnumerable<AppUser>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<PagedList<AppUser>> GetAllAsync(PaginationParams paginationParams, CancellationToken cancellationToken)
     {
-        List<AppUser> appUsers = await _collection.Find
-                (new BsonDocument()).ToListAsync(cancellationToken);
+        IQueryable<AppUser> query = _collection.AsQueryable();
+
+        PagedList<AppUser> appUsers = await PagedList<AppUser>.CreatePagedListAsync(
+            query, paginationParams.PageNumber, paginationParams.PageSize, cancellationToken
+        );
 
         return appUsers;
     }
