@@ -9,7 +9,7 @@
         @if (pagination && paginationParams) {
         <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
             [pageSize]="paginationParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
-            [pageSizeOptions]="true ? pageSizeOptions : []" [hidePageSize]="false"
+            [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false"
             [pageIndex]="paginationParams.pageNumber - 1" aria-label="Select page" class="paginator">
         </mat-paginator>
         }
