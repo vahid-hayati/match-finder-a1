@@ -16,8 +16,13 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
 
         LoggedInDto? loggedInDto = await accountRepository.RegisterAsync(userInput, cancellationToken);
 
-        if (loggedInDto is null)
-            return BadRequest("This email is already taken.");
+        if (loggedInDto?.Errors.Count() > 0)
+        {
+            foreach (var error in loggedInDto.Errors)
+            {
+                return BadRequest(error);
+            }
+        }
 
         return Ok(loggedInDto);
     }
@@ -27,7 +32,7 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
     {
         LoggedInDto? loggedInDto = await accountRepository.LoginAsync(userInput, cancellationToken);
 
-        if (loggedInDto is null)
+        if (loggedInDto!.IsWrongCreds)
             return BadRequest("Email or Password is wrong");
 
         return loggedInDto;

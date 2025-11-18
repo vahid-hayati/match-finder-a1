@@ -11,7 +11,7 @@ public class TokenService : ITokenService
     private readonly IMongoCollection<AppUser> _collection;
     private readonly SymmetricSecurityKey? _key;
 
-    public TokenService(IConfiguration config, IMongoClient client, IMongoDbSettings dbSettings)
+    public TokenService(IConfiguration config, IMongoClient client, IMyMongoDbSettings dbSettings)
     {
         var database = client.GetDatabase(dbSettings.DatabaseName);
         _collection = database.GetCollection<AppUser>("users");
@@ -27,9 +27,11 @@ public class TokenService : ITokenService
     {
         _ = _key ?? throw new ArgumentException("_key cannot be null", nameof(_key));
 
+        Console.WriteLine(appUser.Id);
+
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.NameId, appUser.Id!)
+            new Claim(JwtRegisteredClaimNames.NameId, appUser.Id.ToString())
         };
 
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

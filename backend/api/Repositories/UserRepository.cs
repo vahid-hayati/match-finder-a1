@@ -12,7 +12,7 @@ public class UserRepository : IUserRepository
     private readonly ILogger<UserRepository> _logger;
 
     // Dependency Injection
-    public UserRepository(IMongoClient client, IMongoDbSettings dbSettings, ITokenService tokenService, IPhotoService photoService, ILogger<UserRepository> logger)
+    public UserRepository(IMongoClient client, IMyMongoDbSettings dbSettings, ITokenService tokenService, IPhotoService photoService, ILogger<UserRepository> logger)
     {
         var dbName = client.GetDatabase(dbSettings.DatabaseName);
         _collection = dbName.GetCollection<AppUser>("users");
@@ -24,7 +24,7 @@ public class UserRepository : IUserRepository
 
     public async Task<AppUser?> GetByIdAsync(string userId, CancellationToken cancellationToken)
     {
-        AppUser? appUser = await _collection.Find(doc => doc.Id == userId).SingleOrDefaultAsync(cancellationToken);
+        AppUser? appUser = await _collection.Find(doc => doc.Id.ToString() == userId).SingleOrDefaultAsync(cancellationToken);
 
         if (appUser is null)
             return null;
@@ -42,7 +42,7 @@ public class UserRepository : IUserRepository
         .Set(appUser => appUser.Country, userInput.Country.Trim().ToLower());
 
         return await _collection.UpdateOneAsync(user
-            => user.Id == userId, updateDef, null, cancellationToken);
+            => user.Id.ToString() == userId, updateDef, null, cancellationToken);
     }
 
     public async Task<Photo?> UploadPhotoAsync(IFormFile file, string userId, CancellationToken cancellationToken)
@@ -72,7 +72,7 @@ public class UserRepository : IUserRepository
             UpdateDefinition<AppUser> updatedUser = Builders<AppUser>.Update
                 .Set(doc => doc.Photos, appUser.Photos);
 
-            UpdateResult result = await _collection.UpdateOneAsync(doc => doc.Id == userId, updatedUser, null, cancellationToken);
+            UpdateResult result = await _collection.UpdateOneAsync(doc => doc.Id.ToString() == userId, updatedUser, null, cancellationToken);
 
             return result.ModifiedCount == 1 ? photo : null;
         }
@@ -86,7 +86,7 @@ public class UserRepository : IUserRepository
         // set query
         FilterDefinition<AppUser>? filterOld = Builders<AppUser>.Filter
             .Where(appUser =>
-                appUser.Id == userId && appUser.Photos.Any<Photo>(photo => photo.IsMain == true));
+                appUser.Id.ToString() == userId && appUser.Photos.Any<Photo>(photo => photo.IsMain == true));
 
         UpdateDefinition<AppUser>? updateOld = Builders<AppUser>.Update
             .Set(appUser => appUser.Photos.FirstMatchingElement().IsMain, false);
@@ -98,7 +98,7 @@ public class UserRepository : IUserRepository
         #region  SET the new main photo: find new photo by its Url_165; update IsMain to True
         FilterDefinition<AppUser>? filterNew = Builders<AppUser>.Filter
             .Where(appUser =>
-                appUser.Id == userId && appUser.Photos.Any<Photo>(photo => photo.Url_165 == photoUrlIn));
+                appUser.Id.ToString() == userId && appUser.Photos.Any<Photo>(photo => photo.Url_165 == photoUrlIn));
 
         UpdateDefinition<AppUser>? updateNew = Builders<AppUser>.Update
             .Set(appUser => appUser.Photos.FirstMatchingElement().IsMain, true);
@@ -113,7 +113,7 @@ public class UserRepository : IUserRepository
 
         // Find the photo in AppUser
         Photo photo = await _collection.AsQueryable()
-            .Where(appUser => appUser.Id == userId) // filter by user Id
+            .Where(appUser => appUser.Id.ToString() == userId) // filter by user Id
             .SelectMany(appUser => appUser.Photos) // flatten the Photos array
             .Where(photo => photo.Url_165 == url_165_In) // filter by photo url
             .FirstOrDefaultAsync(cancellationToken); // return the photo or null
@@ -133,6 +133,6 @@ public class UserRepository : IUserRepository
         UpdateDefinition<AppUser> update = Builders<AppUser>.Update
             .PullFilter(appUser => appUser.Photos, photo => photo.Url_165 == url_165_In);
 
-        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id == userId, update, null, cancellationToken);
+        return await _collection.UpdateOneAsync<AppUser>(appUser => appUser.Id.ToString() == userId, update, null, cancellationToken);
     }
 }

@@ -14,7 +14,7 @@ public class ExceptionMiddleware
 
     public ExceptionMiddleware(
         RequestDelegate next, IHostEnvironment env,
-        IMongoClient client, IMongoDbSettings dbSettings,
+        IMongoClient client, IMyMongoDbSettings dbSettings,
         ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
