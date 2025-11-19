@@ -62,8 +62,12 @@ public static class IdentityServiceExtensions
         services.ConfigureMongoDbIdentity<AppUser, AppRole, ObjectId>(identityConfig)
             .AddUserManager<UserManager<AppUser>>()
             .AddSignInManager<SignInManager<AppUser>>()
+            .AddRoleManager<RoleManager<AppRole>>()
             .AddDefaultTokenProviders();
 
+        services.AddAuthorizationBuilder()
+            .AddPolicy("RequiredAdminRole", policy => policy.RequireRole("admin"))
+            .AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("admin", "moderator"));
         #endregion
 
         return services;

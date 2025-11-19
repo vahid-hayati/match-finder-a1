@@ -24,31 +24,49 @@ public class AccountRepository : IAccountRepository
 
     public async Task<LoggedInDto?> RegisterAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
+        var appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
-        IdentityResult? userCreationResult = await _userManager.CreateAsync(appUser, userInput.Password);
+        var userCreationResult = await _userManager.CreateAsync(appUser, userInput.Password);
 
-        if (userCreationResult.Succeeded)
+        if (!userCreationResult.Succeeded)
         {
-            string? token = _tokenService.CreateToken(appUser);
+            var errors = userCreationResult.Errors
+                .Select(e => e.Description)
+                .ToList();
 
-            if (!string.IsNullOrEmpty(token))
+            return new LoggedInDto
             {
-                return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
-            }
+                Errors = errors,
+            };
         }
 
-        string? errorMessage = userCreationResult.Errors.FirstOrDefault()?.Description;
+        var roleResult = await _userManager.AddToRoleAsync(appUser, "member");
 
-        List<string> errors = [];
-
-        errors.Add(errorMessage!);
-
-        return new LoggedInDto
+        if (!roleResult.Succeeded)
         {
-            Errors = errors
-        };
+            var roleErrors = roleResult.Errors
+                .Select(e => e.Description)
+                .ToList();
+
+            return new LoggedInDto
+            {
+                Errors = roleErrors,
+            };
+        }
+
+        var token = await _tokenService.CreateToken(appUser);
+
+        if (string.IsNullOrEmpty(token))
+        {
+            return new LoggedInDto
+            {
+                Errors = new List<string> { "Failed to generate authentication token." },
+            };
+        }
+
+        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
     }
+
 
     public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
@@ -58,21 +76,21 @@ public class AccountRepository : IAccountRepository
         {
             return new LoggedInDto
             {
-                IsWrongCreds = true,  
+                IsWrongCreds = true,
             };
         }
 
         bool isPassCorrect = await _userManager.CheckPasswordAsync(appUser, userInput.Password);
-        
-        if (isPassCorrect)
+
+        if (!isPassCorrect)
         {
             return new LoggedInDto
             {
-               IsWrongCreds = true  
+                IsWrongCreds = true
             };
         }
 
-        string? token = _tokenService.CreateToken(appUser);
+        string? token = await _tokenService.CreateToken(appUser);
 
         if (string.IsNullOrEmpty(token))
         {
