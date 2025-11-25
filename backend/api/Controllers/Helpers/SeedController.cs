@@ -44,7 +44,7 @@ public class SeedController : BaseApiController
 
         if (databaseExists == true)
             // return BadRequest("Database already exists");
-            await _client.DropDatabaseAsync("match-finder");
+            await _client.DropDatabaseAsync("match-finder-a1");
         // await _database.DropCollectionAsync(_collectionName);
         #endregion If databaseExists
 
