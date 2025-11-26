@@ -4,6 +4,16 @@
             <mat-icon>eco</mat-icon>
             Match Finder
         </a>
+        <div>
+            @if (accountService.loggedInUserSig(); as user) {
+            @if (user.roles.includes('admin')) {
+            <span>user role is admin</span>
+            }
+            @else {
+            <span>user is not admin</span>
+            }
+            }
+        </div>
         <!-- <h3>value of ageSig: {{exampleService.ageSig()}}</h3> -->
     </section>
     <section class="right">
