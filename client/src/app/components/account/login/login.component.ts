@@ -15,7 +15,6 @@ import { ExampleService } from '../../../services/example.service';
   selector: 'app-login',
   standalone: true,
   imports: [
-    RouterLink,
     FormsModule, ReactiveFormsModule,
     MatCardModule,
     MatButtonModule, MatFormFieldModule, MatInputModule,
@@ -31,8 +30,8 @@ export class LoginComponent {
 
   //#region formGroup
   loginFg = this.fB.group({
-    emailCtrl: ['', [Validators.required, Validators.email]],
-    passwordCtrl: ['']
+    emailCtrl: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
   })
 
   get EmailCtrl(): FormControl {
