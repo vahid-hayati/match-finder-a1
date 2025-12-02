@@ -47,12 +47,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   //#region registerFg 
   registerFg = this.fB.group({
-    emailCtrl: ['', [Validators.required, Validators.email]],
-    userNameCtrl: '',
-    passwordCtrl: '',
-    confirmPasswordCtrl: '',
-    dateOfBirthCtrl: ['', [Validators.required]],
     genderCtrl: ['female', [Validators.required]],
+    emailCtrl: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]], // Use / instead of ' around RegEx
+    userNameCtrl: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
+    passwordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    confirmPasswordCtrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    dateOfBirthCtrl: ['', [Validators.required]],
   });
 
   get GenderCtrl(): FormControl {
