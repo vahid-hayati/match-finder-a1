@@ -4,9 +4,15 @@ mat-toolbar {
     justify-content: space-between;
 
     .left {
+        display: flex;
+        gap: 2rem;
+
         .brand {
-            color: white;
+            display: flex;
+            // flex-direction: row;
+            align-items: center;
             text-decoration: none;
+            color: white;
         }
     }
 
