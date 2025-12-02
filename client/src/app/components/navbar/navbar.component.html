@@ -4,16 +4,26 @@
             <mat-icon>eco</mat-icon>
             Match Finder
         </a>
-        <div>
-            @if (accountService.loggedInUserSig(); as user) {
-            @if (user.roles.includes('admin')) {
-            <span>user role is admin</span>
+        @if (accountService.loggedInUserSig();) {
+        <nav mat-tab-nav-bar class="main-tab-nav" [tabPanel]="tabPanel">
+            @if (accountService.loggedInUserSig()?.roles?.includes('admin')) {
+            @for (link of linksWithAdmin; track $index) {
+            <a mat-tab-link [routerLink]="['/' + link]" routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive">
+                {{ link | titlecase }}
+            </a>
             }
-            @else {
-            <span>user is not admin</span>
+            } @else {
+            @for (link of links; track $index) {
+            <a mat-tab-link [routerLink]="['/' + link]" routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive">
+                {{ link | titlecase }}
+            </a>
             }
             }
-        </div>
+        </nav>
+        }
+        <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
         <!-- <h3>value of ageSig: {{exampleService.ageSig()}}</h3> -->
     </section>
     <section class="right">

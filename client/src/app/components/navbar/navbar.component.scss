@@ -14,6 +14,22 @@ mat-toolbar {
             text-decoration: none;
             color: white;
         }
+
+        .main-tab-nav {
+            color: #fff;
+
+            a[mat-tab-link] {
+                font-weight: 500;
+                padding: 0 16px;
+
+                &.mat-tab-label-active,
+                &[aria-current='page'],
+                &.mat-accent {
+                    border-bottom: 2px solid #ff4081; // accent
+                }
+            }
+        }
+
     }
 
     .right {

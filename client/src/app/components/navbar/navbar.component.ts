@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { environment } from '../../../environments/environment.development';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,8 @@ import { environment } from '../../../environments/environment.development';
     MatButtonModule, MatToolbarModule,
     MatIconModule, MatMenuModule,
     MatDividerModule, MatListModule,
-    RouterModule
+    MatTabsModule,
+    RouterModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
@@ -27,6 +29,8 @@ import { environment } from '../../../environments/environment.development';
 export class NavbarComponent {
   accountService = inject(AccountService);
   apiUrl = environment.apiUrl;
+  linksWithAdmin: string[] = ['members', 'friends', 'messages', 'admin'];
+  links: string[] = ['members', 'friends', 'messages'];
 
   logout(): void {
     this.accountService.logout();
