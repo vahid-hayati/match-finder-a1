@@ -4,4 +4,5 @@ export interface RegisterUser {
     password: string;
     confirmPassword: string;
     dateOfBirth: string | undefined;
+    gender: string;
 }

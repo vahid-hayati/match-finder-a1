@@ -6,5 +6,6 @@ public record RegisterDto(
     string Email,
     DateOnly DateOfBirth,
     string Password,
-    string ConfirmPassword
+    string ConfirmPassword,
+    [Length(3, 20)] string Gender
 );

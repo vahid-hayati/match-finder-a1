@@ -10,13 +10,15 @@ import { ExampleService } from '../../../services/example.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     FormsModule, ReactiveFormsModule,
-    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule
+    MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule,
+    MatRadioModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -50,11 +52,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
     passwordCtrl: '',
     confirmPasswordCtrl: '',
     dateOfBirthCtrl: ['', [Validators.required]],
-    genderCtrl: '',
-    cityCtrl: '',
-    countryCtrl: ''
+    genderCtrl: ['female', [Validators.required]],
   });
 
+  get GenderCtrl(): FormControl {
+    return this.registerFg.get('genderCtrl') as FormControl;
+  }
   get EmailCtrl(): FormControl {
     return this.registerFg.get('emailCtrl') as FormControl;
   }
@@ -86,6 +89,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         password: this.PasswordCtrl.value,
         confirmPassword: this.ConfirmPasswordCtrl.value,
         dateOfBirth: dob,
+        gender: this.GenderCtrl.value
       }
 
       this.subscribedRegisterUser = this.accountService.register(user).subscribe({
