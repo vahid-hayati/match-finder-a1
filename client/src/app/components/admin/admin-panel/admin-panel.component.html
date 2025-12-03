@@ -1,0 +1,37 @@
+<section class="content">
+    <button (click)="spread()">spread</button>
+    <button (click)="removeItem()">remove</button>
+    <button (click)="slice()">slice</button>
+    <div class="table">
+        @if(usersWithRoles) {
+        <table mat-table [dataSource]="usersWithRoles" class="mat-elevation-z8">
+            <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="active-roles">
+                <th mat-header-cell *matHeaderCellDef> Active Role/s </th>
+                <td mat-cell *matCellDef="let element"> {{element.roles}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete-user">
+                <th mat-header-cell *matHeaderCellDef> Delete User </th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button mat-mini-fab (click)="deleteUser(i, element.userName)">
+                        <mat-icon color="warn">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        }
+    </div>
+</section>
