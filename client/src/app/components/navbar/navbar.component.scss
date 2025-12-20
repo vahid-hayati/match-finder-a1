@@ -109,3 +109,7 @@ mat-toolbar {
         padding: 1rem;
     }
 }
+
+::ng-deep .mat-mdc-tab-nav-bar {
+    --mdc-tab-indicator-active-indicator-height: 4px;
+}
