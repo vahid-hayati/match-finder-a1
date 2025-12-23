@@ -27,42 +27,42 @@ export class AdminPanelComponent implements OnInit {
   displayedColumns = ['no', 'username', 'active-roles', 'delete-user'];
   usersWithRoles: UserWithRole[] = [];
 
-  testSpread(): void {
-    const arr = [1, 2, 3];
-    const newArr = [...arr];
+  // testSpread(): void {
+  //   const arr = [1, 2, 3];
+  //   const newArr = [...arr];
 
-    arr.push(4);
+  //   arr.push(4);
 
-    console.log(arr);
-    console.log(newArr);
-  }
+  //   console.log(arr);
+  //   console.log(newArr);
+  // }
 
-  removeItem(): void {
-    const numbers: number[] = [1, 2, 3, 4, 5];
-    const index: number = 2;
+  // removeItem(): void {
+  //   const numbers: number[] = [1, 2, 3, 4, 5];
+  //   const index: number = 2;
 
-    const before = numbers.slice(0, index);
-    const after = numbers.slice(index + 1);
+  //   const before = numbers.slice(0, index);
+  //   const after = numbers.slice(index + 1);
 
-    const newNumbers = [...before, ...after];
+  //   const newNumbers = [...before, ...after];
 
-    console.log('Original:', numbers);
-    console.log('Before:', before);
-    console.log('After:', after);
-    console.log('Final list:', newNumbers);
-  }
+  //   console.log('Original:', numbers);
+  //   console.log('Before:', before);
+  //   console.log('After:', after);
+  //   console.log('Final list:', newNumbers);
+  // }
 
-  slice(): void {
-    let numbers: number[] = [10, 20, 30, 40, 50];
+  // slice(): void {
+  //   let numbers: number[] = [10, 20, 30, 40, 50];
 
-    let result1 = numbers.slice(1, 4);
-    let result2 = numbers.slice(1);
-    let result3 = numbers.slice(1 + 1);
+  //   let result1 = numbers.slice(1, 4);
+  //   let result2 = numbers.slice(1);
+  //   let result3 = numbers.slice(1 + 1);
 
-    console.log('Result 1:', result1);
-    console.log('Result 2:', result2);
-    console.log('Result 3:', result3);
-  }
+  //   console.log('Result 1:', result1);
+  //   console.log('Result 2:', result2);
+  //   console.log('Result 3:', result3);
+  // }
 
   ngOnInit(): void {
     this.showAllUsersWithRoles();
