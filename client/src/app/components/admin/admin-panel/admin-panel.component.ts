@@ -27,7 +27,7 @@ export class AdminPanelComponent implements OnInit {
   displayedColumns = ['no', 'username', 'active-roles', 'delete-user'];
   usersWithRoles: UserWithRole[] = [];
 
-  spread(): void {
+  testSpread(): void {
     const arr = [1, 2, 3];
     const newArr = [...arr];
 
