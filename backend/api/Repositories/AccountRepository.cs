@@ -24,9 +24,9 @@ public class AccountRepository : IAccountRepository
 
     public async Task<LoggedInDto?> RegisterAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
-        var appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
+        AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
-        var userCreationResult = await _userManager.CreateAsync(appUser, userInput.Password);
+        IdentityResult userCreationResult = await _userManager.CreateAsync(appUser, userInput.Password);
 
         if (!userCreationResult.Succeeded)
         {
@@ -40,7 +40,7 @@ public class AccountRepository : IAccountRepository
             };
         }
 
-        var roleResult = await _userManager.AddToRoleAsync(appUser, "member");
+        IdentityResult roleResult = await _userManager.AddToRoleAsync(appUser, "member");
 
         if (!roleResult.Succeeded)
         {
@@ -54,7 +54,7 @@ public class AccountRepository : IAccountRepository
             };
         }
 
-        var token = await _tokenService.CreateToken(appUser);
+        string? token = await _tokenService.CreateToken(appUser);
 
         if (string.IsNullOrEmpty(token))
         {
