@@ -39,7 +39,7 @@ public class UserRepository : IUserRepository
         .Set(appUser => appUser.LookingFor, userInput.LookingFor.Trim())
         .Set(appUser => appUser.Interests, userInput.Interests.Trim())
         .Set(appUser => appUser.City, userInput.City.Trim().ToLower())
-        .Set(appUser => appUser.Country, userInput.Country.Trim().ToLower());
+        .Set(appUser => appUser.Country, userInput.Country.Trim().ToLower()); 
 
         return await _collection.UpdateOneAsync(user
             => user.Id.ToString() == userId, updateDef, null, cancellationToken);

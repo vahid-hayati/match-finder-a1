@@ -9,14 +9,16 @@ namespace api.Controllers;
 public class MemberController(IMemberRepository memberRepository) : BaseApiController
 {
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll([FromQuery] PaginationParams paginationParams, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAll([FromQuery] MemberParams memberParams, CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
+
+        memberParams.UserId = userId;
 
         if (userId is null)
             return Unauthorized("You are not login. Please login again");
 
-        PagedList<AppUser> pagedAppUsers = await memberRepository.GetAllAsync(paginationParams, cancellationToken);
+        PagedList<AppUser> pagedAppUsers = await memberRepository.GetAllAsync(memberParams, cancellationToken);
 
         if (pagedAppUsers.Count == 0)
             return NoContent();
