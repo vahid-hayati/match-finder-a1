@@ -1,17 +1,60 @@
-<div class="container">
-    <h2>Find Your Beloved One!</h2>
-    <div class="memebrs-container">
-        <div class="members">
-            @for (member of members; track $index) {
-            <app-member-card [memberInput]="member" />
+<section class="members-container">
+  <div class="right-side">
+    <h1>Find Your Beloved One!</h1>
+    <form class="side-bar">
+      <div class="order-by">
+        <p class="title">Sort members</p>
+        <mat-form-field>
+          <mat-label>Sort by</mat-label>
+          <mat-select (selectionChange)="updateMemberParams()" [formControl]="OrderByCtrl">
+            @for (orderOption of orderOptions; track $index) {
+              <mat-option [value]="orderOption" (click)="getAll()"
+                          [disabled]="orderOption === memberParams?.orderBy">
+                {{ orderOptionsView[$index] }}
+              </mat-option>
             }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="filter">
+        <h5 class="title">Search members</h5>
+        <mat-form-field>
+          <input [formControl]="SearchCtrl" matInput placeholder="By Useraname or city" type="text">
+        </mat-form-field>
+
+        <button (click)="updateMemberParams(); getAll();" color="primary" mat-stroked-button>
+          Apply filter
+        </button>
+        <button (click)="reset()" mat-stroked-button color="warn">Reset</button>
+      </div>
+
+      <div class="age">
+        <p>By age range</p>
+        <div class="slider">
+          <mat-slider discrete max="{{maxAge}}" min="{{minAge}}">
+            <input [formControl]="MinAgeCtrl" matSliderStartThumb>
+            <input [formControl]="MaxAgeCtrl" matSliderEndThumb>
+          </mat-slider>
         </div>
-        @if (pagination && paginationParams) {
-        <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
-            [pageSize]="paginationParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
-            [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false"
-            [pageIndex]="paginationParams.pageNumber - 1" aria-label="Select page" class="paginator">
-        </mat-paginator>
-        }
-    </div>
-</div>
+      </div>
+    </form>
+  </div>
+  <div class="members">
+    @if (members?.length === 0) {
+      <p>No user exists with this filter. Please change the filter values or Reset the filter.</p>
+    }
+    @for (member of members; track $index) {
+      <app-member-card [memberInput]="member"></app-member-card>
+    }
+  </div>
+  @if (pagination && memberParams) {
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
+                   [pageSize]="memberParams.pageSize" [disabled]="false" [showFirstLastButtons]="true"
+                   [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false"
+                   [pageIndex]="memberParams.pageNumber - 1"
+                   aria-label="Select page" class="paginator">
+      <!-- pageIndex must start from 0 -->
+    </mat-paginator>
+  }
+</section>

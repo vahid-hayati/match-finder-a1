@@ -39,7 +39,7 @@ export class PhotoEditorComponent implements OnInit {
   numbers: number[] = [1, 2, 3, 4, 5, 6];
   // private snackBar = inject(MatSnackBar);
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.loggedInUser = this._accountService.loggedInUserSig();
 
     this.initializeUploader();
@@ -93,11 +93,11 @@ export class PhotoEditorComponent implements OnInit {
           if (response && this.member) {
 
             for (const photo of this.member.photos) {
-            //   //   // unset previous main
+              //   //   // unset previous main
               if (photo.isMain === true)
                 photo.isMain = false;
 
-            //   //   // set new selected main
+              //   //   // set new selected main
               if (photo.url_165 === url_165In) {
                 photo.isMain = true;
 
@@ -125,7 +125,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   spliceList(): void {
-    this.numbers.splice(1, 1);
+    this.numbers.splice(0, 2);
 
     console.log(this.numbers);
   }
