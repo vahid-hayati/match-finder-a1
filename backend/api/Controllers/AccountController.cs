@@ -1,3 +1,5 @@
+using api.DTOs.Helpers;
+using api.Enums;
 using api.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -7,24 +9,24 @@ namespace api.Controllers;
 public class AccountController(IAccountRepository accountRepository) : BaseApiController
 {
     // CRUD => Create, Read, Update, Delete
-    
+
     [HttpPost("register")] // List<AppUser> appUsers = await _collection.Find(new BsonDocument()).ToListAsync(cancellationToken);
     public async Task<ActionResult<LoggedInDto>> Register(RegisterDto userInput, CancellationToken cancellationToken)
     {
         if (userInput.Password != userInput.ConfirmPassword)
             return BadRequest("Your passwords do not match!");
 
-        LoggedInDto? loggedInDto = await accountRepository.RegisterAsync(userInput, cancellationToken);
+        OperationResult<LoggedInDto> opResult = await accountRepository.RegisterAsync(userInput, cancellationToken);
 
-        if (loggedInDto?.Errors.Count() > 0)
+        return opResult.IsSuccess
+        ? opResult.Result
+        : opResult.Error?.Code switch
         {
-            foreach (var error in loggedInDto.Errors)
-            {
-                return BadRequest(error);
-            }
-        }
-
-        return Ok(loggedInDto);
+            ErrorCode.NetIdentityFailed => BadRequest(opResult.Error.Message),
+            ErrorCode.NetIdentityRoleFailed => BadRequest(opResult.Error.Message),
+            ErrorCode.TokenGenerationFaild => BadRequest(opResult.Error.Message),
+            _ => BadRequest("Something went wrong try again!")
+        };
     }
 
     [HttpPost("login")]

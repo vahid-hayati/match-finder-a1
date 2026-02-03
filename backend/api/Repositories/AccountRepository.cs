@@ -1,3 +1,5 @@
+using api.DTOs.Helpers;
+using api.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,7 +24,7 @@ public class AccountRepository : IAccountRepository
     }
     #endregion
 
-    public async Task<LoggedInDto?> RegisterAsync(RegisterDto userInput, CancellationToken cancellationToken)
+    public async Task<OperationResult<LoggedInDto>> RegisterAsync(RegisterDto userInput, CancellationToken cancellationToken)
     {
         AppUser appUser = Mappers.ConvertRegisterDtoToAppUser(userInput);
 
@@ -30,41 +32,48 @@ public class AccountRepository : IAccountRepository
 
         if (!userCreationResult.Succeeded)
         {
-            var errors = userCreationResult.Errors
-                .Select(e => e.Description)
-                .ToList();
-
-            return new LoggedInDto
-            {
-                Errors = errors,
-            };
+            return new OperationResult<LoggedInDto>(
+                IsSuccess: false,
+                Error: new CustomError(
+                    Code: ErrorCode.NetIdentityFailed,
+                    Message: userCreationResult.Errors.Select(e => e.Description).FirstOrDefault()
+                )
+            );
         }
 
         IdentityResult roleResult = await _userManager.AddToRoleAsync(appUser, "member");
 
         if (!roleResult.Succeeded)
         {
-            var roleErrors = roleResult.Errors
-                .Select(e => e.Description)
-                .ToList();
-
-            return new LoggedInDto
-            {
-                Errors = roleErrors,
-            };
+            return new OperationResult<LoggedInDto>(
+                IsSuccess: false,
+                Error: new CustomError(
+                    ErrorCode.NetIdentityRoleFailed,
+                    Message: roleResult.Errors.Select(e => e.Description).FirstOrDefault()
+                )
+            );
         }
 
         string? token = await _tokenService.CreateToken(appUser);
 
         if (string.IsNullOrEmpty(token))
         {
-            return new LoggedInDto
-            {
-                Errors = new List<string> { "Failed to generate authentication token." },
-            };
+            return new OperationResult<LoggedInDto>(
+                IsSuccess: false,
+                Error: new CustomError(
+                    Code: ErrorCode.TokenGenerationFaild,
+                    Message: "Token generation failed."
+                )
+            );
         }
 
-        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+        LoggedInDto loggedInDto = Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+
+        return new OperationResult<LoggedInDto>(
+            IsSuccess: true,
+            Result: loggedInDto,
+            Error: null
+        );
     }
 
 
