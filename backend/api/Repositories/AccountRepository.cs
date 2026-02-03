@@ -77,36 +77,54 @@ public class AccountRepository : IAccountRepository
     }
 
 
-    public async Task<LoggedInDto?> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
+    public async Task<OperationResult<LoggedInDto>> LoginAsync(LoginDto userInput, CancellationToken cancellationToken)
     {
         AppUser? appUser = await _userManager.FindByEmailAsync(userInput.Email);
 
         if (appUser is null)
         {
-            return new LoggedInDto
-            {
-                IsWrongCreds = true,
-            };
+            return new OperationResult<LoggedInDto>(
+                IsSuccess: false,
+                Error: new CustomError(
+                    Code: ErrorCode.WrongCreds,
+                    Message: "Wrong Creds!"
+                )
+            );
         }
 
         bool isPassCorrect = await _userManager.CheckPasswordAsync(appUser, userInput.Password);
 
         if (!isPassCorrect)
         {
-            return new LoggedInDto
-            {
-                IsWrongCreds = true
-            };
+            return new OperationResult<LoggedInDto>(
+                IsSuccess: false,
+                Error: new CustomError(
+                    Code: ErrorCode.WrongCreds,
+                    Message: "Wrong Creds!"
+                )
+            );
         }
 
         string? token = await _tokenService.CreateToken(appUser);
 
         if (string.IsNullOrEmpty(token))
         {
-            return null;
+            return new OperationResult<LoggedInDto>(
+                IsSuccess: false,
+                Error: new CustomError(
+                    Code: ErrorCode.TokenGenerationFaild,
+                    "Token generation faild!"
+                )
+            );
         }
 
-        return Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+        LoggedInDto loggedInDto = Mappers.ConvertAppUserToLoggedInDto(appUser, token);
+
+        return new OperationResult<LoggedInDto>(
+            IsSuccess: true,
+            Result: loggedInDto,
+            Error: null
+        );
     }
 
     [Authorize]

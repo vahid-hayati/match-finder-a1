@@ -32,12 +32,16 @@ public class AccountController(IAccountRepository accountRepository) : BaseApiCo
     [HttpPost("login")]
     public async Task<ActionResult<LoggedInDto>> Login(LoginDto userInput, CancellationToken cancellationToken)
     {
-        LoggedInDto loggedInDto = await accountRepository.LoginAsync(userInput, cancellationToken);
+        OperationResult<LoggedInDto> opResult = await accountRepository.LoginAsync(userInput, cancellationToken);
 
-        if (loggedInDto.IsWrongCreds)
-            return BadRequest("Email or Password is wrong");
-
-        return loggedInDto;
+        return opResult.IsSuccess
+        ? opResult.Result
+        : opResult.Error?.Code switch
+        {
+            ErrorCode.WrongCreds => BadRequest(opResult.Error.Message),
+            ErrorCode.TokenGenerationFaild => BadRequest(opResult.Error.Message),
+            _ => BadRequest("Something went wrong try again later.")
+        };
     }
 
     [Authorize]
