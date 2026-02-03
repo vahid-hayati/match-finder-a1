@@ -39,9 +39,10 @@ public class MemberRepository : IMemberRepository
 
     private IQueryable<AppUser> CreateQuery(MemberParams memberParams)
     {
+        // calculate DOB based on user's selected Age
         DateOnly minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-memberParams.MaxAge - 1));
         DateOnly maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-memberParams.MinAge));
-        
+
         IQueryable<AppUser> query = _collection.AsQueryable();
 
         query = memberParams.OrderBy switch
@@ -50,18 +51,18 @@ public class MemberRepository : IMemberRepository
             "created" => query.OrderByDescending(appUser => appUser.CreatedOn).ThenBy(appUser => appUser.Id),
             _ => query.OrderByDescending(appUser => appUser.LastActive).ThenBy(appUser => appUser.Id)
         };
-        
+
         if (!string.IsNullOrEmpty(memberParams.Search))
         {
             memberParams.Search = memberParams.Search.ToUpper();
 
             query = query.Where(
-                u => u.NormalizedUserName!.Contains(memberParams.Search, StringComparison.CurrentCultureIgnoreCase) // "rezab"  , san// "reza taba"
+                u => u.NormalizedUserName.Contains(memberParams.Search, StringComparison.CurrentCultureIgnoreCase) // "rezab"  , san// "reza taba"
                      || u.City.Contains(memberParams.Search, StringComparison.CurrentCultureIgnoreCase)
                      || u.Country.Contains(memberParams.Search, StringComparison.CurrentCultureIgnoreCase)
             );
         }
-        
+
         query = query.Where(u => !(u.NormalizedUserName!.Equals("ADMIN") || u.NormalizedUserName == "MODERATOR"));
         query = query.Where(u => u.Id.ToString() != memberParams.UserId);
         query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
