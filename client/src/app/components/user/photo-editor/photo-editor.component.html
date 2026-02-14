@@ -9,7 +9,6 @@
         <div class="gallery">
             @for (photo of member.photos; track $index) {
             <div class="photos">
-                <button (click)="spliceList()">splice</button>
                 <img src="{{apiUrl + photo.url_165}}" width="165" height="165" alt="{{member.userName}} photo">
                 <div class="buttons">
                     <button (click)="setMainPhotoComp(photo.url_165)" mat-stroked-button color="primary"
