@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { environment } from '../../../../environments/environment.development';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-member-card',
   standalone: true,
   imports: [
-    CommonModule, MatCardModule, MatIconModule
+    CommonModule, MatCardModule, MatIconModule, RouterModule
   ],
   templateUrl: './member-card.component.html',
   styleUrl: './member-card.component.scss'
