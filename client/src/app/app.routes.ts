@@ -14,6 +14,7 @@ import { ServerErrorComponent } from './components/errors/server-error/server-er
 import { FriendsComponent } from './components/friends/friends.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
+import { MemberDetailsComponent } from './components/members/member-details/member-details.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ export const routes: Routes = [
             { path: 'no-access', component: NoAccessComponent },
             { path: 'friends', component: FriendsComponent },
             { path: 'messages', component: MessagesComponent },
-            { path: 'admin', component: AdminPanelComponent }
+            { path: 'admin', component: AdminPanelComponent },
+            { path: 'member-details/:userName', component: MemberDetailsComponent}
         ]
     },
     {
