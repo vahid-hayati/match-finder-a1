@@ -1,0 +1,103 @@
+main {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    min-height: 100dvh;
+    gap: 2rem;
+
+    .left-side {
+        min-width: 12rem;
+        border-radius: 17px;
+        background: linear-gradient(145deg, #cacaca, #f0f0f0);
+        box-shadow: 16px 16px 35px #afafaf,
+            -16px -16px 35px #ffffff;
+        padding: 10px;
+
+        .photo {
+            width: 100%;
+            border-radius: 17px;
+        }
+
+        .online-status {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0.5rem;
+
+            .wrapper {
+                * {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    .right-side {
+        flex-grow: 3;
+
+        .tab-contents {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 1rem;
+            gap: 1rem;
+
+            .photos {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+                padding: 10px;
+
+                img {
+                    border-radius: 17px;
+                }
+            }
+        }
+
+        .introduction {
+            p {
+                margin: 0;
+                padding: 0;
+            }
+
+            h2 {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .lookingFor {
+            p {
+                margin: 0;
+                padding: 0;
+            }
+
+            h2 {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .interests {
+            p {
+                margin: 0;
+                padding: 0;
+            }
+
+            h2 {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}
