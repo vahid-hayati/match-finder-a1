@@ -50,22 +50,19 @@
     </section>
 
     <section class="right-side">
-        <mat-tab-group class="tab-group" mat-stretch-tabs="false" mat-align-tabs="start">
+        <mat-tab-group class="tab-group" mat-stretch-tabs="true" mat-align-tabs="start">
             <mat-tab label="Photos">
-                <!-- <div class="tab-contents">
-          @if (images.length > 0) {
-          <div class="gallery">
-            @for (image of images; track $index) {
-            <div class="photo" [lightbox]="$index">
-              <img gallerize [src]="image.data?.thumb" alt="{{member.knownAs + '\'s' + ' image'}}">
-              <mat-icon color="primary">zoom_in</mat-icon>
-            </div>
-            }
-          </div>
-          } @else {
-          <p>This member has not shared any photos!</p>
-          }
-        </div> -->
+                <div class="tab-contents">
+                    @if (member.photos.length > 0) {
+                    <div class="photos">
+                        @for (photo of member.photos; track $index) {
+                        <img gallerize src="{{apiUrl + photo.url_256}}" alt="{{member.userName + '\'s' + ' image'}}" height="256" width="256">
+                        }
+                    </div>
+                    } @else {
+                    <p>This member has not shared any photos!</p>
+                    }
+                </div>
             </mat-tab>
 
             <mat-tab label="About {{member.userName}}">
