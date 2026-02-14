@@ -1,7 +1,16 @@
 @if (memberIn) {
 <mat-card class="card">
   <div class="card-img-wrapper">
+    @if (memberIn.photos.length === 0) {
     <img src="member.jpg" alt="{{memberIn.userName}}">
+    }
+    @else {
+    @for (photo of memberIn.photos; track $index) {
+    @if (photo.isMain) {
+    <img src="{{apiUrl + photo.url_165}}" height="128" width="128" alt="{{memberIn.userName}}">
+    }
+    }
+    }
     <ul class="user-icons">
       <li>
         <button mat-mini-fab>
