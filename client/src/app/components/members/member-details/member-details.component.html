@@ -1,1 +1,113 @@
-<h1>Hi</h1>
+@if (member) {
+<main>
+    <section class="left-side">
+        @if (member.photos.length > 0) {
+        @for (photo of member.photos; track $index) {
+        @if (photo.isMain) {
+        <img src="{{apiUrl + photo.url_165}}" priority alt="" class="photo" height="200" width="200">
+        }
+        }
+        }
+        @else {
+        <img src="member.jpg" alt="" class="photo" height="200" width="200">
+        }
+        <div class="online-status">
+            @switch (member.gender) {
+            @case ('female') {
+            <mat-icon color="primary">girl</mat-icon>
+            }
+            @case ('male') {
+            <mat-icon color="primary">boy</mat-icon>
+            }
+            @default {
+            <mat-icon>person</mat-icon>
+            }
+            }
+            <span>offline</span>
+        </div>
+        <div class="details">
+            <div class="wrapper">
+                <h3>Username</h3>
+                <p>{{ member.userName }}</p>
+            </div>
+            <div class="wrapper">
+                <h3>Location</h3>
+                <p>{{ member.city }}, {{ member.country }}</p>
+            </div>
+            <div class="wrapper">
+                <h3>Age</h3>
+                <p>{{ member.age }}</p>
+            </div>
+            <div class="wrapper">
+                <h3>Last Active</h3>
+                <p>{{ member.lastActive | intlRelativeTime }}</p>
+            </div>
+            <!-- <div class="wrapper">
+        <h3>Member Since</h3>
+        <p>{{ member.created | date }}</p>
+      </div> -->
+        </div>
+    </section>
+
+    <section class="right-side">
+        <mat-tab-group class="tab-group" mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="Photos">
+                <!-- <div class="tab-contents">
+          @if (images.length > 0) {
+          <div class="gallery">
+            @for (image of images; track $index) {
+            <div class="photo" [lightbox]="$index">
+              <img gallerize [src]="image.data?.thumb" alt="{{member.knownAs + '\'s' + ' image'}}">
+              <mat-icon color="primary">zoom_in</mat-icon>
+            </div>
+            }
+          </div>
+          } @else {
+          <p>This member has not shared any photos!</p>
+          }
+        </div> -->
+            </mat-tab>
+
+            <mat-tab label="About {{member.userName}}">
+                <div class="tab-contents">
+                    <div class="introduction">
+                        <h2>Introduction</h2>
+                        @if (member.introduction) {
+                        <p>{{member.introduction}}</p>
+                        }
+                        @else {
+                        <p>Introduction is empty!</p>
+                        }
+                    </div>
+
+                    <div class="lookingFor">
+                        <h2>LookingFor</h2>
+                        @if (member.lookingFor) {
+                        <p>{{member.lookingFor}}</p>
+                        }
+                        @else {
+                        <p>LookingFor is empty!</p>
+                        }
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Interests">
+                <div class="tab-contents">
+                    <div class="interests">
+                        <h2>Interests</h2>
+                        @if (member.interests) {
+                        <p>{{member.interests}}</p>
+                        }
+                        @else {
+                        <p>Interests is empty!</p>
+                        }
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Messages">Content 4</mat-tab>
+        </mat-tab-group>
+    </section>
+</main>
+}
