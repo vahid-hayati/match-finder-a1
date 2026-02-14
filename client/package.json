@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "angular-ecmascript-intl": "^6.0.0",
+    "intl": "^1.2.5",
     "ng2-file-upload": "^8.0.0",
     "ngx-spinner": "^19.0.0",
     "rxjs": "~7.8.0",
