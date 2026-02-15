@@ -12,7 +12,6 @@ public class LogUserActivity(ILogger<LogUserActivity> _logger) : IAsyncActionFil
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         ActionExecutedContext? resultNext = await next(); // After api's processing is done. 
-        // Use 'context' instead of 'next' for before api's processing.
 
         if (resultNext is null) return;
 
